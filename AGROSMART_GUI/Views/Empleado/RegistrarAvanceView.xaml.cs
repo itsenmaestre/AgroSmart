@@ -1,5 +1,8 @@
-﻿using System;
+﻿using AGROSMART_BLL;
+using AGROSMART_ENTITY.ENTIDADES;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,107 +22,116 @@ namespace AGROSMART_GUI.Views.Empleado
     /// </summary>
     public partial class RegistrarAvanceView : Window
     {
-        private readonly int _idTarea;
-        private readonly int _idEmpleado;
+        private readonly AsignacionTareaService _svc = new AsignacionTareaService();
+        private ASIGNACION_TAREA _asignacion;
 
-        // TODO: Crear AsignacionTareaService en BLL
-        // private readonly AsignacionTareaService _service = new AsignacionTareaService();
+        // Constructor usado por nuestro dashboard (pasamos la entidad)
+        public RegistrarAvanceView(ASIGNACION_TAREA seleccionada)
+        {
+            InitializeComponent();
+            _asignacion = seleccionada;
+            PrecargarUI();
+        }
 
+        // Constructor alterno para ser 100% compatible con cómo lo abre Claude (idTarea + idEmpleado)
         public RegistrarAvanceView(int idTarea, int idEmpleado)
         {
             InitializeComponent();
-            _idTarea = idTarea;
-            _idEmpleado = idEmpleado;
 
-            CargarInfoTarea();
+            var asignaciones = _svc.ListarPorEmpleado(idEmpleado);
+            _asignacion = asignaciones.FirstOrDefault(a => a.ID_TAREA == idTarea);
+
+            if (_asignacion == null)
+            {
+                MessageBox.Show("No se encontró la asignación para esta tarea.", "AgroSmart");
+                this.Close();
+                return;
+            }
+
+            PrecargarUI();
         }
 
-        private void CargarInfoTarea()
+        private void PrecargarUI()
         {
-            // TODO: Obtener información de la tarea desde la base de datos
-            // Ejemplo:
-            // var tarea = _tareaService.ObtenerPorId(_idTarea);
-            // txtInfoTarea.Text = $"Tarea: {tarea.TIPO_ACTIVIDAD} - #{tarea.ID_TAREA}";
-            // txtFechaTarea.Text = $"Fecha programada: {tarea.FECHA_PROGRAMADA:dd 'de' MMMM, yyyy}";
+            // Encabezados
+            txtInfoTarea.Text = "Tarea código: " + _asignacion.ID_TAREA;
+            txtFechaTarea.Text = "Fecha programada: -"; // si conectas a TareaService, puedes mostrar la fecha real
 
-            txtInfoTarea.Text = $"Tarea #{_idTarea}";
-            txtFechaTarea.Text = $"Empleado ID: {_idEmpleado}";
+            // Datos previamente cargados, si existían
+            txtHorasTrabajadas.Text = _asignacion.HORAS_TRABAJADAS.HasValue
+                ? _asignacion.HORAS_TRABAJADAS.Value.ToString("0.##", CultureInfo.InvariantCulture)
+                : "0.00";
+
+            txtJornadasTrabajadas.Text = _asignacion.JORNADAS_TRABAJADAS.HasValue
+                ? _asignacion.JORNADAS_TRABAJADAS.Value.ToString("0.##", CultureInfo.InvariantCulture)
+                : "0.00";
+
+            if (!string.IsNullOrWhiteSpace(_asignacion.ESTADO))
+            {
+                foreach (object obj in cboEstado.Items)
+                {
+                    ComboBoxItem item = obj as ComboBoxItem;
+                    if (item != null && string.Equals(Convert.ToString(item.Content), _asignacion.ESTADO, StringComparison.OrdinalIgnoreCase))
+                    {
+                        cboEstado.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
         }
 
         private void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Validaciones básicas
-                if (!decimal.TryParse(txtHorasTrabajadas.Text, out decimal horas) || horas < 0)
+                decimal? horas = ParseNullableDecimal(txtHorasTrabajadas.Text);
+                decimal? jorn = ParseNullableDecimal(txtJornadasTrabajadas.Text);
+
+                string estado = null;
+                ComboBoxItem item = cboEstado.SelectedItem as ComboBoxItem;
+                if (item != null) estado = item.Content as string;
+
+                _asignacion.HORAS_TRABAJADAS = horas;
+                _asignacion.JORNADAS_TRABAJADAS = jorn;
+                _asignacion.ESTADO = estado;
+
+                string rpta = _svc.ActualizarAvance(_asignacion);
+                MessageBox.Show(rpta, "AgroSmart", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                if (rpta == "OK")
                 {
-                    MessageBox.Show("Las horas trabajadas deben ser un número positivo.",
-                        "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                if (!decimal.TryParse(txtJornadasTrabajadas.Text, out decimal jornadas) || jornadas < 0)
-                {
-                    MessageBox.Show("Las jornadas trabajadas deben ser un número positivo.",
-                        "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                string estado = ((System.Windows.Controls.ComboBoxItem)cboEstado.SelectedItem)?.Content?.ToString() ?? "PENDIENTE";
-
-                // TODO: Crear entidad y guardar en BD
-                // Ejemplo:
-                /*
-                var asignacion = new ASIGNACION_TAREA
-                {
-                    ID_TAREA = _idTarea,
-                    ID_EMPLEADO = _idEmpleado,
-                    HORAS_TRABAJADAS = horas,
-                    JORNADAS_TRABAJADAS = jornadas,
-                    ESTADO = estado,
-                    FECHA_ASIGNACION = DateTime.Now
-                };
-
-                var service = new AsignacionTareaService();
-                string resultado = service.ActualizarAvance(asignacion);
-
-                if (resultado == "OK")
-                {
-                    MessageBox.Show("Avance registrado correctamente.", "Éxito", 
-                        MessageBoxButton.OK, MessageBoxImage.Information);
                     this.DialogResult = true;
-                    Close();
+                    this.Close();
                 }
-                else
-                {
-                    MessageBox.Show($"Error al registrar avance: {resultado}", "Error", 
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                */
-
-                // Simulación temporal
-                MessageBox.Show($"Avance registrado:\n\n" +
-                    $"Tarea: {_idTarea}\n" +
-                    $"Horas: {horas}\n" +
-                    $"Jornadas: {jornadas}\n" +
-                    $"Estado: {estado}\n" +
-                    $"Observaciones: {txtObservaciones.Text}",
-                    "Registro Exitoso", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                this.DialogResult = true;
-                Close();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Verifica números válidos (usa punto decimal o tu separador).", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al registrar avance: {ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error: " + ex.Message, "AgroSmart", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
-            Close();
+            this.Close();
+        }
+
+        private decimal? ParseNullableDecimal(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return null;
+
+            decimal value;
+            if (decimal.TryParse(input, NumberStyles.Number, CultureInfo.InvariantCulture, out value))
+                return value;
+
+            if (decimal.TryParse(input, out value))
+                return value;
+
+            throw new FormatException("Número inválido.");
         }
     }
 }

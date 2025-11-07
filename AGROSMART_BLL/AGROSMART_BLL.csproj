@@ -45,6 +45,7 @@
     <Compile Include="ICrudEscritura.cs" />
     <Compile Include="ICrudLectura.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TareaService.cs" />
     <Compile Include="UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>

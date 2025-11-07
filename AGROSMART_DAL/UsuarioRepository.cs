@@ -18,7 +18,7 @@ namespace AGROSMART_DAL
         {
             const string sql = @"
                 SELECT ID_USUARIO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO,
-                       CEDULA, EMAIL, CONTRASENA, TELEFONO
+                        EMAIL, CONTRASENA, TELEFONO
                 FROM USUARIO
                 WHERE ID_USUARIO = :p_id AND CONTRASENA = :p_contra";
 
@@ -49,7 +49,6 @@ namespace AGROSMART_DAL
                 SEGUNDO_NOMBRE = dr["SEGUNDO_NOMBRE"] as string,
                 PRIMER_APELLIDO = dr["PRIMER_APELLIDO"] as string,
                 SEGUNDO_APELLIDO = dr["SEGUNDO_APELLIDO"] as string,
-                CEDULA = dr["CEDULA"] as string,
                 EMAIL = dr["EMAIL"] as string,
                 CONTRASENA = dr["CONTRASENA"] as string,
                 TELEFONO = dr["TELEFONO"] as string
@@ -101,7 +100,7 @@ namespace AGROSMART_DAL
             const string sql = @"
                 INSERT INTO USUARIO
                 (ID_USUARIO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO,
-                 CEDULA, EMAIL, CONTRASENA, TELEFONO)
+                  EMAIL, CONTRASENA, TELEFONO)
                 VALUES
                 (:p_id, :p_pnom, :p_snom, :p_pape, :p_sape, :p_ced, :p_mail, :p_pwd, :p_tel)";
 
@@ -113,7 +112,6 @@ namespace AGROSMART_DAL
                 cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = e.SEGUNDO_NOMBRE;
                 cmd.Parameters.Add(":p_pape", OracleDbType.Varchar2).Value = e.PRIMER_APELLIDO;
                 cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = e.SEGUNDO_APELLIDO;
-                cmd.Parameters.Add(":p_ced", OracleDbType.Varchar2).Value = e.CEDULA;
                 cmd.Parameters.Add(":p_mail", OracleDbType.Varchar2).Value = e.EMAIL;
                 cmd.Parameters.Add(":p_pwd", OracleDbType.Varchar2).Value = e.CONTRASENA;
                 cmd.Parameters.Add(":p_tel", OracleDbType.Varchar2).Value = e.TELEFONO;
@@ -131,7 +129,7 @@ namespace AGROSMART_DAL
             const string sql = @"
                 UPDATE USUARIO
                    SET PRIMER_NOMBRE=:p_pnom, SEGUNDO_NOMBRE=:p_snom, PRIMER_APELLIDO=:p_pape,
-                       SEGUNDO_APELLIDO=:p_sape, CEDULA=:p_ced, EMAIL=:p_mail,
+                       SEGUNDO_APELLIDO=:p_sape, EMAIL=:p_mail,
                        CONTRASENA=:p_pwd, TELEFONO=:p_tel
                  WHERE ID_USUARIO=:p_id";
 
@@ -142,7 +140,6 @@ namespace AGROSMART_DAL
                 cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = e.SEGUNDO_NOMBRE;
                 cmd.Parameters.Add(":p_pape", OracleDbType.Varchar2).Value = e.PRIMER_APELLIDO;
                 cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = e.SEGUNDO_APELLIDO;
-                cmd.Parameters.Add(":p_ced", OracleDbType.Varchar2).Value = e.CEDULA;
                 cmd.Parameters.Add(":p_mail", OracleDbType.Varchar2).Value = e.EMAIL;
                 cmd.Parameters.Add(":p_pwd", OracleDbType.Varchar2).Value = e.CONTRASENA;
                 cmd.Parameters.Add(":p_tel", OracleDbType.Varchar2).Value = e.TELEFONO;
@@ -184,7 +181,7 @@ namespace AGROSMART_DAL
                     const string sqlUser = @"
                         INSERT INTO USUARIO
                         (ID_USUARIO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO,
-                         CEDULA, EMAIL, CONTRASENA, TELEFONO)
+                          EMAIL, CONTRASENA, TELEFONO)
                         VALUES
                         (:p_id, :p_pnom, :p_snom, :p_pape, :p_sape, :p_ced, :p_mail, :p_pwd, :p_tel)";
 
@@ -196,7 +193,6 @@ namespace AGROSMART_DAL
                         cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = u.SEGUNDO_NOMBRE;
                         cmd.Parameters.Add(":p_pape", OracleDbType.Varchar2).Value = u.PRIMER_APELLIDO;
                         cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = u.SEGUNDO_APELLIDO;
-                        cmd.Parameters.Add(":p_ced", OracleDbType.Varchar2).Value = u.CEDULA;
                         cmd.Parameters.Add(":p_mail", OracleDbType.Varchar2).Value = u.EMAIL;
                         cmd.Parameters.Add(":p_pwd", OracleDbType.Varchar2).Value = u.CONTRASENA;
                         cmd.Parameters.Add(":p_tel", OracleDbType.Varchar2).Value = u.TELEFONO;

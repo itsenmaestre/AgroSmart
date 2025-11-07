@@ -1,0 +1,280 @@
+﻿<Window x:Class="AGROSMART_GUI.Views.Empleado.EmpleadoView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AgroSmart - Panel Empleado" 
+        Height="732" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+
+    <Window.Resources>
+        <!-- Estilos para botones del menú lateral -->
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,15"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#5CB85C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Estilo para las tarjetas de estadísticas -->
+        <Style x:Key="StatCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo para botones de acción -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#45A049"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== MENÚ LATERAL ===== -->
+        <Border Grid.Column="0" Background="#4CAF50">
+            <StackPanel>
+                <!-- Logo y título -->
+                <StackPanel Margin="20,30,20,40" HorizontalAlignment="Center">
+                    <TextBlock Text="🌱" FontSize="48" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="AgroSmart" FontSize="22" FontWeight="Bold" 
+                               Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+
+                <!-- Opciones del menú -->
+                <Button x:Name="btnInicio" Content="🏠  Inicio" Style="{StaticResource MenuButtonStyle}" 
+                        Background="#5CB85C" Click="BtnInicio_Click"/>
+                <Button x:Name="btnMisTareas" Content="📋  Mis tareas" Style="{StaticResource MenuButtonStyle}" 
+                        Click="BtnMisTareas_Click"/>
+                <Button x:Name="btnProgreso" Content="❓  Progreso" Style="{StaticResource MenuButtonStyle}" 
+                        Click="BtnProgreso_Click"/>
+                <Button x:Name="btnPerfil" Content="👤  Perfil" Style="{StaticResource MenuButtonStyle}" 
+                        Click="BtnPerfil_Click"/>
+                <Button x:Name="btnAyuda" Content="❓  Ayuda" Style="{StaticResource MenuButtonStyle}" 
+                        Click="BtnAyuda_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ===== CONTENIDO PRINCIPAL ===== -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="30,20">
+
+                <!-- Título de bienvenida -->
+                <TextBlock x:Name="txtBienvenida" Text="Hola, bienvenido" 
+                           FontSize="28" FontWeight="SemiBold" 
+                           Foreground="#333" Margin="0,0,0,30"/>
+
+                <!-- Tarjetas de estadísticas -->
+                <Grid Margin="0,0,0,30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Tareas asignadas hoy -->
+                    <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Tareas asignadas hoy" FontSize="13" Foreground="#666"/>
+                            <TextBlock x:Name="txtTareasHoy" Text="3" FontSize="48" 
+                                       FontWeight="Bold" Foreground="#4CAF50" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- En progreso -->
+                    <Border Grid.Column="1" Style="{StaticResource StatCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="En progreso" FontSize="13" Foreground="#666"/>
+                            <TextBlock x:Name="txtEnProgreso" Text="1" FontSize="48" 
+                                       FontWeight="Bold" Foreground="#FF9800" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Vencidas -->
+                    <Border Grid.Column="2" Style="{StaticResource StatCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Vencidas" FontSize="13" Foreground="#666"/>
+                            <TextBlock x:Name="txtVencidas" Text="0" FontSize="48" 
+                                       FontWeight="Bold" Foreground="#F44336" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Sección: Mis tareas -->
+                <TextBlock Text="Mis tareas" FontSize="20" FontWeight="SemiBold" 
+                           Foreground="#333" Margin="0,0,0,15"/>
+
+                <Border Background="White" CornerRadius="8" Padding="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.2"/>
+                    </Border.Effect>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Encabezados de la tabla -->
+                        <Grid Grid.Row="0" Background="#F5F5F5" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Código" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="1" Text="Estado" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="2" Text="Fecha programada" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="3" Text="Horas acumula..." FontWeight="SemiBold" Padding="10"/>
+                        </Grid>
+
+                        <!-- Lista de tareas -->
+                        <ItemsControl x:Name="lstMisTareas" Grid.Row="1">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="10,15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="120"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{Binding Codigo}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Estado}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding FechaProgramada}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding HorasAcumuladas}" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Border>
+
+                <!-- Alerta -->
+                <Border Background="#FFF9C4" CornerRadius="8" Padding="20" Margin="0,30,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Alertas" FontSize="18" FontWeight="SemiBold" Foreground="#F57C00" Margin="0,0,0,10"/>
+                        <TextBlock Text="No olvide completar sus informes de avance." 
+                                   FontSize="14" Foreground="#666" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Sección: Ordenar (tareas para registrar avance) -->
+                <TextBlock Text="Ordenar" FontSize="20" FontWeight="SemiBold" 
+                           Foreground="#333" Margin="0,30,0,15"/>
+
+                <Border Background="White" CornerRadius="8" Padding="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.2"/>
+                    </Border.Effect>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Encabezados -->
+                        <Grid Grid.Row="0" Background="#F5F5F5" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Código" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="1" Text="Estado" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="2" Text="Fecha program." FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="3" Text="Horas acumula..." FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="4" Text="Acción" FontWeight="SemiBold" Padding="10"/>
+                        </Grid>
+
+                        <!-- Lista de tareas pendientes de registro -->
+                        <ItemsControl x:Name="lstTareasPendientes" Grid.Row="1">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="10,15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="150"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{Binding Codigo}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Estado}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding FechaProgramada}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding HorasAcumuladas}" VerticalAlignment="Center"/>
+                                            <Button Grid.Column="4" Content="Registrar avance" 
+                                                    Style="{StaticResource ActionButtonStyle}"
+                                                    Tag="{Binding IdTarea}"
+                                                    Click="BtnRegistrarAvance_Click"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

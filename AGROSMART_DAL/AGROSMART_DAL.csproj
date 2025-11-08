@@ -79,10 +79,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminRepository.cs" />
     <Compile Include="AsignacionTareaRepository.cs" />
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="CosechaRepository.cs" />
+    <Compile Include="CultivoRepository.cs" />
     <Compile Include="EmpleadoRepository.cs" />
+    <Compile Include="InsumoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TareaRepositorycs.cs" />
     <Compile Include="UsuarioRepository.cs" />

@@ -57,15 +57,14 @@ namespace AGROSMART_GUI.Views.Shared
                 if (txtContrasena.Password != txtConfirmarContrasena.Password)
                     throw new Exception("Las contraseñas no coinciden.");
 
-                // Crear objeto USUARIO
+                // Crear objeto USUARIO (SIN campo CEDULA duplicado)
                 var nuevoUsuario = new USUARIO
                 {
-                    ID_USUARIO = cedula,
+                    ID_USUARIO = cedula, // Este campo ES la cédula
                     PRIMER_NOMBRE = txtPrimerNombre.Text.Trim(),
                     SEGUNDO_NOMBRE = string.IsNullOrWhiteSpace(txtSegundoNombre.Text) ? null : txtSegundoNombre.Text.Trim(),
                     PRIMER_APELLIDO = txtPrimerApellido.Text.Trim(),
                     SEGUNDO_APELLIDO = string.IsNullOrWhiteSpace(txtSegundoApellido.Text) ? null : txtSegundoApellido.Text.Trim(),
-                    CEDULA = txtCedula.Text.Trim(),
                     EMAIL = txtEmail.Text.Trim(),
                     CONTRASENA = txtContrasena.Password,
                     TELEFONO = txtTelefono.Text.Trim()

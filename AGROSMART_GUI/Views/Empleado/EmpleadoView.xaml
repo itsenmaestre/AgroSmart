@@ -86,20 +86,20 @@
                 <StackPanel Margin="20,30,20,40" HorizontalAlignment="Center">
                     <TextBlock Text="🌱" FontSize="48" HorizontalAlignment="Center" Foreground="White"/>
                     <TextBlock Text="AgroSmart" FontSize="22" FontWeight="Bold" 
-                               Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                       Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,0"/>
                 </StackPanel>
 
                 <!-- Opciones del menú -->
-                <Button x:Name="btnInicio" Content="🏠  Inicio" Style="{StaticResource MenuButtonStyle}" 
-                        Background="#5CB85C" Click="BtnInicio_Click"/>
-                <Button x:Name="btnMisTareas" Content="📋  Mis tareas" Style="{StaticResource MenuButtonStyle}" 
-                        Click="BtnMisTareas_Click"/>
-                <Button x:Name="btnProgreso" Content="❓  Progreso" Style="{StaticResource MenuButtonStyle}" 
-                        Click="BtnProgreso_Click"/>
-                <Button x:Name="btnPerfil" Content="👤  Perfil" Style="{StaticResource MenuButtonStyle}" 
-                        Click="BtnPerfil_Click"/>
-                <Button x:Name="btnAyuda" Content="❓  Ayuda" Style="{StaticResource MenuButtonStyle}" 
-                        Click="BtnAyuda_Click"/>
+                <Button x:Name="btnInicio" Content="🏠 Inicio" Style="{StaticResource MenuButtonStyle}" 
+                Background="#5CB85C" Click="BtnInicio_Click"/>
+                <Button x:Name="btnMisTareas" Content="📋 Mis tareas" Style="{StaticResource MenuButtonStyle}" 
+                Click="BtnMisTareas_Click"/>
+                <Button x:Name="btnProgreso" Content="📊 Progreso" Style="{StaticResource MenuButtonStyle}" 
+                Click="BtnProgreso_Click"/>
+                <Button x:Name="btnPerfil" Content="👤 Perfil" Style="{StaticResource MenuButtonStyle}" 
+                Click="BtnPerfil_Click"/>
+                <Button x:Name="btnAyuda" Content="❓ Ayuda" Style="{StaticResource MenuButtonStyle}" 
+                Click="BtnAyuda_Click"/>
             </StackPanel>
         </Border>
 

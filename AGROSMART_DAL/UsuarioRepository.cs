@@ -93,7 +93,7 @@ namespace AGROSMART_DAL
         }
 
         // =========================================================
-        // === INSERTAR NUEVO USUARIO
+        // === INSERTAR NUEVO USUARIO (CORREGIDO)
         // =========================================================
         public override string Guardar(USUARIO e)
         {
@@ -102,16 +102,16 @@ namespace AGROSMART_DAL
                 (ID_USUARIO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO,
                   EMAIL, CONTRASENA, TELEFONO)
                 VALUES
-                (:p_id, :p_pnom, :p_snom, :p_pape, :p_sape, :p_ced, :p_mail, :p_pwd, :p_tel)";
+                (:p_id, :p_pnom, :p_snom, :p_pape, :p_sape, :p_mail, :p_pwd, :p_tel)";
 
             using (var cn = Conexion.CrearConexion())
             using (var cmd = new OracleCommand(sql, cn))
             {
                 cmd.Parameters.Add(":p_id", OracleDbType.Int32).Value = e.ID_USUARIO;
                 cmd.Parameters.Add(":p_pnom", OracleDbType.Varchar2).Value = e.PRIMER_NOMBRE;
-                cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = e.SEGUNDO_NOMBRE;
+                cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = (object)e.SEGUNDO_NOMBRE ?? DBNull.Value;
                 cmd.Parameters.Add(":p_pape", OracleDbType.Varchar2).Value = e.PRIMER_APELLIDO;
-                cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = e.SEGUNDO_APELLIDO;
+                cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = (object)e.SEGUNDO_APELLIDO ?? DBNull.Value;
                 cmd.Parameters.Add(":p_mail", OracleDbType.Varchar2).Value = e.EMAIL;
                 cmd.Parameters.Add(":p_pwd", OracleDbType.Varchar2).Value = e.CONTRASENA;
                 cmd.Parameters.Add(":p_tel", OracleDbType.Varchar2).Value = e.TELEFONO;
@@ -137,9 +137,9 @@ namespace AGROSMART_DAL
             using (var cmd = new OracleCommand(sql, cn))
             {
                 cmd.Parameters.Add(":p_pnom", OracleDbType.Varchar2).Value = e.PRIMER_NOMBRE;
-                cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = e.SEGUNDO_NOMBRE;
+                cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = (object)e.SEGUNDO_NOMBRE ?? DBNull.Value;
                 cmd.Parameters.Add(":p_pape", OracleDbType.Varchar2).Value = e.PRIMER_APELLIDO;
-                cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = e.SEGUNDO_APELLIDO;
+                cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = (object)e.SEGUNDO_APELLIDO ?? DBNull.Value;
                 cmd.Parameters.Add(":p_mail", OracleDbType.Varchar2).Value = e.EMAIL;
                 cmd.Parameters.Add(":p_pwd", OracleDbType.Varchar2).Value = e.CONTRASENA;
                 cmd.Parameters.Add(":p_tel", OracleDbType.Varchar2).Value = e.TELEFONO;
@@ -166,7 +166,7 @@ namespace AGROSMART_DAL
         }
 
         // =========================================================
-        // === REGISTRAR EMPLEADO (USUARIO + EMPLEADO)
+        // === REGISTRAR EMPLEADO (USUARIO + EMPLEADO) - CORREGIDO
         // =========================================================
         public string RegistrarEmpleado(USUARIO u, EMPLEADO e)
         {
@@ -183,19 +183,20 @@ namespace AGROSMART_DAL
                         (ID_USUARIO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO,
                           EMAIL, CONTRASENA, TELEFONO)
                         VALUES
-                        (:p_id, :p_pnom, :p_snom, :p_pape, :p_sape, :p_ced, :p_mail, :p_pwd, :p_tel)";
+                        (:p_id, :p_pnom, :p_snom, :p_pape, :p_sape, :p_mail, :p_pwd, :p_tel)";
 
                     using (OracleCommand cmd = new OracleCommand(sqlUser, cn))
                     {
                         cmd.Transaction = tx;
                         cmd.Parameters.Add(":p_id", OracleDbType.Int32).Value = u.ID_USUARIO;
                         cmd.Parameters.Add(":p_pnom", OracleDbType.Varchar2).Value = u.PRIMER_NOMBRE;
-                        cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = u.SEGUNDO_NOMBRE;
+                        cmd.Parameters.Add(":p_snom", OracleDbType.Varchar2).Value = (object)u.SEGUNDO_NOMBRE ?? DBNull.Value;
                         cmd.Parameters.Add(":p_pape", OracleDbType.Varchar2).Value = u.PRIMER_APELLIDO;
-                        cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = u.SEGUNDO_APELLIDO;
+                        cmd.Parameters.Add(":p_sape", OracleDbType.Varchar2).Value = (object)u.SEGUNDO_APELLIDO ?? DBNull.Value;
                         cmd.Parameters.Add(":p_mail", OracleDbType.Varchar2).Value = u.EMAIL;
                         cmd.Parameters.Add(":p_pwd", OracleDbType.Varchar2).Value = u.CONTRASENA;
                         cmd.Parameters.Add(":p_tel", OracleDbType.Varchar2).Value = u.TELEFONO;
+
                         if (cmd.ExecuteNonQuery() != 1)
                             throw new Exception("No se insertó USUARIO.");
                     }
@@ -211,6 +212,7 @@ namespace AGROSMART_DAL
                         cmd.Parameters.Add(":p_id", OracleDbType.Int32).Value = u.ID_USUARIO;
                         cmd.Parameters.Add(":p_hora", OracleDbType.Decimal).Value = e.MONTO_POR_HORA;
                         cmd.Parameters.Add(":p_jornal", OracleDbType.Decimal).Value = e.MONTO_POR_JORNAL;
+
                         if (cmd.ExecuteNonQuery() != 1)
                             throw new Exception("No se insertó EMPLEADO.");
                     }
@@ -221,12 +223,17 @@ namespace AGROSMART_DAL
                 catch (OracleException ex)
                 {
                     tx.Rollback();
-                    throw new Exception($"Error Oracle {ex.Number}: {ex.Message}");
+
+                    // Manejo específico de errores Oracle
+                    if (ex.Number == 1) // ORA-00001: unique constraint violated
+                        return "Error: La cédula ya está registrada en el sistema.";
+
+                    return $"Error Oracle {ex.Number}: {ex.Message}";
                 }
-                catch
+                catch (Exception ex)
                 {
                     tx.Rollback();
-                    throw;
+                    return $"Error: {ex.Message}";
                 }
             }
         }

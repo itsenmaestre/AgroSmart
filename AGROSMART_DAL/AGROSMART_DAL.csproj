@@ -85,6 +85,7 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="CosechaRepository.cs" />
     <Compile Include="CultivoRepository.cs" />
+    <Compile Include="DetalleTareaRepository.cs" />
     <Compile Include="EmpleadoRepository.cs" />
     <Compile Include="InsumoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

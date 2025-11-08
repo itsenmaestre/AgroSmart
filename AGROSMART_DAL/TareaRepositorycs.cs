@@ -180,6 +180,74 @@ namespace AGROSMART_DAL
             return lista;
         }
 
+        // ===== MÉTODOS NUEVOS PARA ESTADÍSTICAS DEL EMPLEADO =====
+
+        /// <summary>
+        /// Cuenta tareas asignadas a un empleado en una fecha específica
+        /// </summary>
+        public int ContarTareasPorEmpleadoYFecha(int idEmpleado, DateTime fecha)
+        {
+            const string sql = @"
+                SELECT COUNT(*) 
+                FROM TAREA T
+                INNER JOIN ASIGNACION_TAREA A ON A.ID_TAREA = T.ID_TAREA
+                WHERE A.ID_EMPLEADO = :idEmpleado 
+                AND TRUNC(T.FECHA_PROGRAMADA) = TRUNC(:fecha)";
+
+            using (var cn = CrearConexion())
+            using (var cmd = new OracleCommand(sql, cn))
+            {
+                cmd.Parameters.Add(":idEmpleado", OracleDbType.Int32).Value = idEmpleado;
+                cmd.Parameters.Add(":fecha", OracleDbType.Date).Value = fecha;
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        /// <summary>
+        /// Cuenta tareas de un empleado por estado (desde ASIGNACION_TAREA)
+        /// </summary>
+        public int ContarTareasPorEmpleadoYEstado(int idEmpleado, string estado)
+        {
+            const string sql = @"
+                SELECT COUNT(*) 
+                FROM ASIGNACION_TAREA 
+                WHERE ID_EMPLEADO = :idEmpleado 
+                AND ESTADO = :estado";
+
+            using (var cn = CrearConexion())
+            using (var cmd = new OracleCommand(sql, cn))
+            {
+                cmd.Parameters.Add(":idEmpleado", OracleDbType.Int32).Value = idEmpleado;
+                cmd.Parameters.Add(":estado", OracleDbType.Varchar2).Value = estado;
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        /// <summary>
+        /// Cuenta tareas vencidas de un empleado (fecha programada < hoy y no finalizadas)
+        /// </summary>
+        public int ContarTareasVencidasPorEmpleado(int idEmpleado, DateTime fechaActual)
+        {
+            const string sql = @"
+                SELECT COUNT(*) 
+                FROM TAREA T
+                INNER JOIN ASIGNACION_TAREA A ON A.ID_TAREA = T.ID_TAREA
+                WHERE A.ID_EMPLEADO = :idEmpleado 
+                AND T.FECHA_PROGRAMADA < :fechaActual
+                AND A.ESTADO != 'FINALIZADA'";
+
+            using (var cn = CrearConexion())
+            using (var cmd = new OracleCommand(sql, cn))
+            {
+                cmd.Parameters.Add(":idEmpleado", OracleDbType.Int32).Value = idEmpleado;
+                cmd.Parameters.Add(":fechaActual", OracleDbType.Date).Value = fechaActual;
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
         private TAREA Mapear(OracleDataReader dr)
         {
             return new TAREA

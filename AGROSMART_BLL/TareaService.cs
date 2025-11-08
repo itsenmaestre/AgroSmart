@@ -94,5 +94,70 @@ namespace AGROSMART_BLL
         {
             return _repo.ObtenerPorEstado("EN_PROGRESO").Count;
         }
+
+        // ===== MÉTODOS NUEVOS PARA EmpleadoView =====
+
+        /// <summary>
+        /// Obtiene la fecha programada de una tarea específica
+        /// </summary>
+        public DateTime? ObtenerFechaProgramada(int idTarea)
+        {
+            try
+            {
+                var tarea = _repo.ObtenerPorId(idTarea);
+                return tarea?.FECHA_PROGRAMADA;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Cuenta las tareas asignadas a un empleado para el día actual
+        /// </summary>
+        public int ContarTareasDeHoy(int idEmpleado)
+        {
+            try
+            {
+                var hoy = DateTime.Today;
+                return _repo.ContarTareasPorEmpleadoYFecha(idEmpleado, hoy);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Cuenta las tareas de un empleado por estado específico
+        /// </summary>
+        public int ContarPorEstado(int idEmpleado, string estado)
+        {
+            try
+            {
+                return _repo.ContarTareasPorEmpleadoYEstado(idEmpleado, estado);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Cuenta las tareas vencidas de un empleado
+        /// </summary>
+        public int ContarVencidas(int idEmpleado)
+        {
+            try
+            {
+                var hoy = DateTime.Today;
+                return _repo.ContarTareasVencidasPorEmpleado(idEmpleado, hoy);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }

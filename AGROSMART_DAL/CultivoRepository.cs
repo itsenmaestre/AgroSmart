@@ -55,9 +55,9 @@ namespace AGROSMART_DAL
         public override string Guardar(CULTIVO entidad)
         {
             const string sql = @"
-                INSERT INTO CULTIVO (ID_CULTIVO, ID_ADMIN_SUPERVISOR, NOMBRE_LOTE, 
+                INSERT INTO CULTIVO (ID_ADMIN_SUPERVISOR, NOMBRE_LOTE, 
                                      FECHA_SIEMBRA, FECHA_COSECHA_ESTIMADA, ALERTA_N8N)
-                VALUES (NULL, :admin, :nombre, :siembra, :cosecha, :alerta)";
+                VALUES (:admin, :nombre, :siembra, :cosecha, :alerta)";
 
             using (var cn = CrearConexion())
             using (var cmd = new OracleCommand(sql, cn))

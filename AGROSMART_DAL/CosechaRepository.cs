@@ -57,10 +57,10 @@ namespace AGROSMART_DAL
         public override string Guardar(COSECHA entidad)
         {
             const string sql = @"
-                INSERT INTO COSECHA (ID_COSECHA, ID_CULTIVO, ID_ADMIN_REGISTRO, 
+                INSERT INTO COSECHA (ID_CULTIVO, ID_ADMIN_REGISTRO, 
                                      FECHA_COSECHA, FECHA_REGISTRO, CANTIDAD_OBTENIDA,
                                      UNIDAD_MEDIDA, CALIDAD, OBSERVACIONES)
-                VALUES (NULL, :cultivo, :admin, :fechaCos, :fechaReg, :cantidad, 
+                VALUES (:cultivo, :admin, :fechaCos, :fechaReg, :cantidad, 
                         :unidad, :calidad, :obs)";
 
             using (var cn = CrearConexion())

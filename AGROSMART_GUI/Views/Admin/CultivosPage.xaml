@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" d:DesignWidth="840"
       Title="CultivosPage"
-      Background="Transparent" Height="905">
+      Background="Transparent">
 
     <Page.Resources>
         <!-- Estilos reutilizables -->
@@ -243,11 +243,12 @@
                 </Grid>
             </Border>
 
-            <!-- Lista de Cultivos -->
+            <!-- Lista de Cultivos con SCROLL -->
             <Border Grid.Row="2" 
                     Background="White" 
                     CornerRadius="12" 
-                    Padding="25">
+                    Padding="25"
+                    Height="450">
                 <Border.Effect>
                     <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="1" BlurRadius="15" Opacity="0.08"/>
                 </Border.Effect>
@@ -270,96 +271,97 @@
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <!-- DataGrid -->
-                    <DataGrid x:Name="dgCultivos" 
-                              Grid.Row="1"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              CanUserAddRows="False"
-                              SelectionMode="Single"
-                              GridLinesVisibility="None"
-                              HeadersVisibility="Column"
-                              Background="Transparent"
-                              BorderThickness="0"
-                              RowHeight="55"
-                              FontSize="13">
-                        <DataGrid.Resources>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="#F5F7F6"/>
-                                <Setter Property="Foreground" Value="#2F5233"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter Property="FontSize" Value="13"/>
-                                <Setter Property="Padding" Value="12,10"/>
-                            </Style>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="Background" Value="White"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#F9FAFB"/>
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#E8F5E9"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.Resources>
+                    <!-- DataGrid con ScrollViewer -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DataGrid x:Name="dgCultivos" 
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  SelectionMode="Single"
+                                  GridLinesVisibility="None"
+                                  HeadersVisibility="Column"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  RowHeight="60"
+                                  FontSize="13">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#F5F7F6"/>
+                                    <Setter Property="Foreground" Value="#2F5233"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontSize" Value="13"/>
+                                    <Setter Property="Padding" Value="12,10"/>
+                                </Style>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#F9FAFB"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#E8F5E9"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.Resources>
 
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding IdCultivo}" Width="70"/>
-                            <DataGridTextColumn Header="Nombre Lote" Binding="{Binding NombreLote}" Width="*" MinWidth="200"/>
-                            <DataGridTextColumn Header="Fecha Siembra" Binding="{Binding FechaSiembra, StringFormat=dd/MM/yyyy}" Width="130"/>
-                            <DataGridTextColumn Header="Cosecha Estimada" Binding="{Binding FechaCosechaEstimada, StringFormat=dd/MM/yyyy}" Width="150"/>
-                            <DataGridTextColumn Header="Días Restantes" Binding="{Binding DiasRestantes}" Width="130"/>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding IdCultivo}" Width="70"/>
+                                <DataGridTextColumn Header="Nombre Lote" Binding="{Binding NombreLote}" Width="*" MinWidth="200"/>
+                                <DataGridTextColumn Header="Fecha Siembra" Binding="{Binding FechaSiembra, StringFormat=dd/MM/yyyy}" Width="130"/>
+                                <DataGridTextColumn Header="Cosecha Estimada" Binding="{Binding FechaCosechaEstimada, StringFormat=dd/MM/yyyy}" Width="150"/>
+                                <DataGridTextColumn Header="Días Restantes" Binding="{Binding DiasRestantes}" Width="130"/>
 
-                            <DataGridTemplateColumn Header="Acciones" Width="200">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Button Content="👁️ Ver" 
-                                                    Tag="{Binding}"
-                                                    Click="BtnVer_Click"
-                                                    Background="#3498DB" 
-                                                    Foreground="White"
-                                                    BorderThickness="0"
-                                                    Padding="10,6"
-                                                    Margin="0,0,5,0"
-                                                    FontSize="11"
-                                                    Cursor="Hand">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}" 
-                                                                CornerRadius="6"
-                                                                Padding="{TemplateBinding Padding}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>
-                                            <Button Content="✏️ Editar" 
-                                                    Tag="{Binding}"
-                                                    Click="BtnEditar_Click"
-                                                    Background="#4A7C59" 
-                                                    Foreground="White"
-                                                    BorderThickness="0"
-                                                    Padding="10,6"
-                                                    FontSize="11"
-                                                    Cursor="Hand">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}" 
-                                                                CornerRadius="6"
-                                                                Padding="{TemplateBinding Padding}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                <DataGridTemplateColumn Header="Acciones" Width="220">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0">
+                                                <Button Content="👁️ Ver" 
+                                                        Tag="{Binding}"
+                                                        Click="BtnVer_Click"
+                                                        Background="#3498DB" 
+                                                        Foreground="White"
+                                                        BorderThickness="0"
+                                                        Padding="12,8"
+                                                        Margin="0,0,8,0"
+                                                        FontSize="11"
+                                                        Cursor="Hand">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                    CornerRadius="6"
+                                                                    Padding="{TemplateBinding Padding}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                                <Button Content="✏️ Editar" 
+                                                        Tag="{Binding}"
+                                                        Click="BtnEditar_Click"
+                                                        Background="#4A7C59" 
+                                                        Foreground="White"
+                                                        BorderThickness="0"
+                                                        Padding="12,8"
+                                                        FontSize="11"
+                                                        Cursor="Hand">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                    CornerRadius="6"
+                                                                    Padding="{TemplateBinding Padding}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
         </Grid>

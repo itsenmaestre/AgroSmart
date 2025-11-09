@@ -48,7 +48,7 @@
                 </StackPanel>
 
                 <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="15,10"
-                        VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="453,52,10,0">
+                        VerticalAlignment="Top" Margin="383,49,83,0" Height="49">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.1"/>
                     </Border.Effect>

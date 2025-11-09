@@ -52,7 +52,17 @@ namespace AGROSMART_GUI.Views.Empleado
                     txtNombreCompleto.Text = nombreCompleto;
                     txtId.Text = usuario.ID_USUARIO.ToString();
                     txtEmail.Text = usuario.EMAIL ?? "No registrado";
-                    txtTelefono.Text = usuario.TELEFONO ?? "No registrado";
+
+                    // CORRECCIÓN: Verificar y mostrar el teléfono correctamente
+                    if (!string.IsNullOrWhiteSpace(usuario.TELEFONO))
+                    {
+                        // Si TELEFONO es string
+                        txtTelefono.Text = usuario.TELEFONO;
+                    }
+                    else
+                    {
+                        txtTelefono.Text = "No registrado";
+                    }
                 }
                 else
                 {

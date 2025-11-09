@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace AGROSMART_GUI.Resources.Styles
+namespace AGROSMART_GUI.Views.Empleado
 {
     /// <summary>
-    /// Lógica de interacción para ColorResources.xaml
+    /// Lógica de interacción para AyudaPage.xaml
     /// </summary>
-    public partial class ColorResources : Window
+    public partial class AyudaPage : Page
     {
-        public ColorResources()
+        public AyudaPage()
         {
             InitializeComponent();
         }

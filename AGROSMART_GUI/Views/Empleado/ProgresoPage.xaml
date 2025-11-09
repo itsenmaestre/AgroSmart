@@ -1,0 +1,92 @@
+﻿<Page x:Class="AGROSMART_GUI.Views.Empleado.ProgresoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Progreso"
+      Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="30,20">
+
+            <TextBlock Text="📊 Registrar Progreso" FontSize="28" FontWeight="SemiBold" 
+                       Foreground="#333" Margin="0,0,0,30"/>
+
+            <Border Background="White" CornerRadius="8" Padding="20">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.2"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Tareas Pendientes de Registro" 
+                               FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+                    <!-- Encabezados -->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Background="#F5F5F5" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Código" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="1" Text="Estado" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="2" Text="Fecha" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="3" Text="Horas" FontWeight="SemiBold" Padding="10"/>
+                            <TextBlock Grid.Column="4" Text="Acción" FontWeight="SemiBold" Padding="10"/>
+                        </Grid>
+
+                        <!-- Lista de tareas -->
+                        <ItemsControl x:Name="lstTareasPendientes" Grid.Row="1">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="10,15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="150"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{Binding Codigo}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Estado}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding FechaProgramada}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding HorasAcumuladas}" VerticalAlignment="Center"/>
+                                            <Button Grid.Column="4" Content="Registrar avance" 
+                                                    Background="#4CAF50" Foreground="White"
+                                                    Padding="15,8" Cursor="Hand" BorderThickness="0"
+                                                    Tag="{Binding IdTarea}"
+                                                    Click="BtnRegistrarAvance_Click">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

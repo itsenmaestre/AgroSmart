@@ -55,17 +55,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Resources\Styles\ButtonStyles.xaml.cs">
-      <DependentUpon>ButtonStyles.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Styles\ColorResources.xaml.cs">
-      <DependentUpon>ColorResources.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Admin\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Empleado\AyudaPage.xaml.cs">
+      <DependentUpon>AyudaPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Empleado\EmpleadoView.xaml.cs">
       <DependentUpon>EmpleadoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Empleado\InicioEmpleadoPage.xaml.cs">
+      <DependentUpon>InicioEmpleadoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Empleado\MisTareasPage.xaml.cs">
+      <DependentUpon>MisTareasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Empleado\PerfilPage.xaml.cs">
+      <DependentUpon>PerfilPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Empleado\ProgresoPage.xaml.cs">
+      <DependentUpon>ProgresoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Empleado\RegistrarAvanceView.xaml.cs">
       <DependentUpon>RegistrarAvanceView.xaml</DependentUpon>
@@ -79,8 +88,8 @@
     <Compile Include="Views\Shared\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\RegistroPage.xaml.cs">
-      <DependentUpon>RegistroPage.xaml</DependentUpon>
+    <Compile Include="Views\Shared\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -106,7 +115,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Empleado\AyudaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Empleado\EmpleadoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Empleado\InicioEmpleadoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Empleado\MisTareasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Empleado\PerfilPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Empleado\ProgresoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,7 +155,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shared\RegistroPage.xaml">
+    <Page Include="Views\Shared\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

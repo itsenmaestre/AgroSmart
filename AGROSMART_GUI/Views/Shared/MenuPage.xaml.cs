@@ -31,7 +31,7 @@ namespace AGROSMART_GUI.Views.Shared
 
         private void CrearCuentaButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RegistroPage());
+            NavigationService.Navigate(new RegisterPage());
         }
     }
 }

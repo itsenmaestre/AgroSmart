@@ -45,6 +45,7 @@
     <Compile Include="AsignacionTareaService.cs" />
     <Compile Include="CosechaService.cs" />
     <Compile Include="CultivoService.cs" />
+    <Compile Include="DetalleTareaService.cs" />
     <Compile Include="EmpleadoService.cs" />
     <Compile Include="ICrudEscritura.cs" />
     <Compile Include="ICrudLectura.cs" />

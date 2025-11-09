@@ -29,10 +29,12 @@ namespace AGROSMART_GUI.Views.Admin
             _idAdmin = idAdmin;
             _nombreAdmin = nombreCompleto;
 
+            // Mostrar nombre del admin
             if (!string.IsNullOrWhiteSpace(_nombreAdmin))
                 txtUserName.Text = _nombreAdmin;
 
             // Cargar página de inicio por defecto
+            MenuListBox.SelectedIndex = 0;
             CargarPaginaInicio();
         }
 
@@ -44,20 +46,23 @@ namespace AGROSMART_GUI.Views.Admin
 
                 switch (tag)
                 {
-                    case "📦":
+                    case "📦": // Insumos
                         CargarPaginaInsumos();
                         break;
-                    case "✅":
+                    case "✅": // Crear Tareas
                         CargarPaginaCrearTareas();
                         break;
-                    case "👥":
+                    case "👥": // Asignar Tarea
                         CargarPaginaAsignarTarea();
                         break;
-                    case "🌾":
+                    case "🌾": // Cultivos
                         CargarPaginaCultivos();
                         break;
-                    case "🌽":
+                    case "🌽": // Cosechas
                         CargarPaginaCosechas();
+                        break;
+                    default:
+                        CargarPaginaInicio();
                         break;
                 }
             }
@@ -65,69 +70,94 @@ namespace AGROSMART_GUI.Views.Admin
 
         private void CargarPaginaInicio()
         {
-            // Página temporal de bienvenida
-            var page = new Page();
-            var stack = new StackPanel
+            try
             {
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
-
-            var welcome = new TextBlock
+                // Puedes crear una página de dashboard con estadísticas
+                var page = new InicioAdminPage(_idAdmin, _nombreAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch
             {
-                Text = $"Bienvenido, {_nombreAdmin}",
-                FontSize = 24,
-                FontWeight = FontWeights.Bold,
-                Margin = new Thickness(0, 0, 0, 20)
-            };
-
-            var info = new TextBlock
-            {
-                Text = "Selecciona una opción del menú lateral",
-                FontSize = 16
-            };
-
-            stack.Children.Add(welcome);
-            stack.Children.Add(info);
-            page.Content = stack;
-
-            AdminFrame.Navigate(page);
+                // Si no existe InicioAdminPage, mostrar página temporal
+                MostrarPaginaTemporal("Dashboard",
+                    $"Bienvenido {_nombreAdmin}.\nSelecciona una opción del menú lateral.");
+            }
         }
 
         private void CargarPaginaInsumos()
         {
-            MostrarPaginaTemporal("Gestión de Insumos",
-                "Aquí podrás administrar el inventario de insumos");
+            try
+            {
+                var page = new InsumosPage(_idAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Insumos: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CargarPaginaCrearTareas()
         {
-            MostrarPaginaTemporal("Crear Tareas",
-                "Aquí podrás crear nuevas tareas para los cultivos");
+            try
+            {
+                var page = new CrearTareasPage(_idAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Crear Tareas: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CargarPaginaAsignarTarea()
         {
-            MostrarPaginaTemporal("Asignar Tareas",
-                "Aquí podrás asignar tareas a los empleados");
+            try
+            {
+                var page = new AsignarEmpleadosPage(_idAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Asignar Tareas: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CargarPaginaCultivos()
         {
-            MostrarPaginaTemporal("Gestión de Cultivos",
-                "Aquí podrás administrar los cultivos");
+            try
+            {
+                var page = new CultivosPage(_idAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Cultivos: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CargarPaginaCosechas()
         {
-            MostrarPaginaTemporal("Registro de Cosechas",
-                "Aquí podrás registrar las cosechas realizadas");
+            try
+            {
+                var page = new CosechasPage(_idAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Cosechas: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void MostrarPaginaTemporal(string titulo, string descripcion)
         {
             var page = new Page();
-            var stack = new StackPanel
+            var stack = new System.Windows.Controls.StackPanel
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -140,27 +170,22 @@ namespace AGROSMART_GUI.Views.Admin
                 FontSize = 28,
                 FontWeight = FontWeights.Bold,
                 Foreground = System.Windows.Media.Brushes.DarkGreen,
-                Margin = new Thickness(0, 0, 0, 15)
+                Margin = new Thickness(0, 0, 0, 15),
+                HorizontalAlignment = HorizontalAlignment.Center
             };
 
             var desc = new TextBlock
             {
                 Text = descripcion,
                 FontSize = 16,
-                Foreground = System.Windows.Media.Brushes.Gray
-            };
-
-            var devNote = new TextBlock
-            {
-                Text = "📝 Funcionalidad en desarrollo",
-                FontSize = 14,
-                Foreground = System.Windows.Media.Brushes.Orange,
-                Margin = new Thickness(0, 30, 0, 0)
+                Foreground = System.Windows.Media.Brushes.Gray,
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Center,
+                MaxWidth = 400
             };
 
             stack.Children.Add(title);
             stack.Children.Add(desc);
-            stack.Children.Add(devNote);
             page.Content = stack;
 
             AdminFrame.Navigate(page);
@@ -176,6 +201,7 @@ namespace AGROSMART_GUI.Views.Admin
 
             if (result == MessageBoxResult.Yes)
             {
+                // Volver a MainWindow (login)
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 this.Close();

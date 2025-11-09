@@ -58,6 +58,21 @@
     <Compile Include="Views\Admin\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\AsignarEmpleadosPage.xaml.cs">
+      <DependentUpon>AsignarEmpleadosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\CosechasPage.xaml.cs">
+      <DependentUpon>CosechasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\CrearTareasPage.xaml.cs">
+      <DependentUpon>CrearTareasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\CultivosPage.xaml.cs">
+      <DependentUpon>CultivosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\InsumosPage.xaml.cs">
+      <DependentUpon>InsumosPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Empleado\AyudaPage.xaml.cs">
       <DependentUpon>AyudaPage.xaml</DependentUpon>
     </Compile>
@@ -112,6 +127,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\AdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\AsignarEmpleadosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\CosechasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\CrearTareasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\CultivosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\InsumosPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

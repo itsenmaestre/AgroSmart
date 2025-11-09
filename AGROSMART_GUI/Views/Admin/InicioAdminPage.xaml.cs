@@ -46,60 +46,119 @@ namespace AGROSMART_GUI.Views.Admin
             {
                 var stats = _adminService.ObtenerEstadisticas(_idAdmin);
 
-                txtCultivosActivos.Text = stats.ContainsKey("CultivosActivos")
-                    ? stats["CultivosActivos"].ToString() : "0";
+                // Método auxiliar para obtener valores de forma segura
+                int GetStatValue(string key)
+                {
+                    return stats.ContainsKey(key) ? stats[key] : 0;
+                }
 
-                txtTareasCreadas.Text = stats.ContainsKey("TareasCreadas")
-                    ? stats["TareasCreadas"].ToString() : "0";
+                // Asignar valores a los controles
+                txtCultivosActivos.Text = GetStatValue("CultivosActivos").ToString();
+                txtTareasCreadas.Text = GetStatValue("TareasCreadas").ToString();
+                txtTotalEmpleados.Text = GetStatValue("TotalEmpleados").ToString();
+                txtTareasPendientes.Text = GetStatValue("TareasPendientes").ToString();
 
-                txtTotalEmpleados.Text = stats.ContainsKey("TotalEmpleados")
-                    ? stats["TotalEmpleados"].ToString() : "0";
+                // Generar resumen
+                int cultivos = GetStatValue("CultivosActivos");
+                int tareas = GetStatValue("TareasCreadas");
+                int empleados = GetStatValue("TotalEmpleados");
+                int pendientes = GetStatValue("TareasPendientes");
 
-                txtTareasPendientes.Text = stats.ContainsKey("TareasPendientes")
-                    ? stats["TareasPendientes"].ToString() : "0";
-
-                // Resumen
-                txtResumen.Text = $"• Estás supervisando {stats.GetValueOrDefault("CultivosActivos", 0)} cultivos activos.\n" +
-                                 $"• Has creado {stats.GetValueOrDefault("TareasCreadas", 0)} tareas en total.\n" +
-                                 $"• Tienes {stats.GetValueOrDefault("TotalEmpleados", 0)} empleados registrados.\n" +
-                                 $"• Hay {stats.GetValueOrDefault("TareasPendientes", 0)} tareas pendientes de asignación.";
+                txtResumen.Text = $"• Estás supervisando {cultivos} cultivos activos.\n" +
+                                 $"• Has creado {tareas} tareas en total.\n" +
+                                 $"• Tienes {empleados} empleados registrados.\n" +
+                                 $"• Hay {pendientes} tareas pendientes de asignación.";
             }
             catch (Exception ex)
             {
                 txtResumen.Text = $"Error al cargar estadísticas: {ex.Message}";
+
+                // Valores por defecto en caso de error
+                txtCultivosActivos.Text = "0";
+                txtTareasCreadas.Text = "0";
+                txtTotalEmpleados.Text = "0";
+                txtTareasPendientes.Text = "0";
             }
         }
 
         private void BtnCrearTarea_Click(object sender, RoutedEventArgs e)
         {
-            // Navegar a CrearTareasPage
-            var parentWindow = Window.GetWindow(this) as AdminView;
-            if (parentWindow != null)
+            try
             {
-                var frame = parentWindow.FindName("AdminFrame") as Frame;
-                frame?.Navigate(new CrearTareasPage(_idAdmin));
+                // Navegar a CrearTareasPage
+                var parentWindow = Window.GetWindow(this) as AdminView;
+                if (parentWindow != null)
+                {
+                    var frame = parentWindow.FindName("AdminFrame") as Frame;
+                    if (frame != null)
+                    {
+                        frame.Navigate(new CrearTareasPage(_idAdmin));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo acceder al Frame de navegación.", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al navegar: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void BtnRegistrarCultivo_Click(object sender, RoutedEventArgs e)
         {
-            // Navegar a CultivosPage
-            var parentWindow = Window.GetWindow(this) as AdminView;
-            if (parentWindow != null)
+            try
             {
-                var frame = parentWindow.FindName("AdminFrame") as Frame;
-                frame?.Navigate(new CultivosPage(_idAdmin));
+                // Navegar a CultivosPage
+                var parentWindow = Window.GetWindow(this) as AdminView;
+                if (parentWindow != null)
+                {
+                    var frame = parentWindow.FindName("AdminFrame") as Frame;
+                    if (frame != null)
+                    {
+                        frame.Navigate(new CultivosPage(_idAdmin));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo acceder al Frame de navegación.", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al navegar: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void BtnGestionarInsumos_Click(object sender, RoutedEventArgs e)
         {
-            // Navegar a InsumosPage
-            var parentWindow = Window.GetWindow(this) as AdminView;
-            if (parentWindow != null)
+            try
             {
-                var frame = parentWindow.FindName("AdminFrame") as Frame;
-                frame?.Navigate(new InsumosPage(_idAdmin));
+                // Navegar a InsumosPage
+                var parentWindow = Window.GetWindow(this) as AdminView;
+                if (parentWindow != null)
+                {
+                    var frame = parentWindow.FindName("AdminFrame") as Frame;
+                    if (frame != null)
+                    {
+                        frame.Navigate(new InsumosPage(_idAdmin));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo acceder al Frame de navegación.", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al navegar: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

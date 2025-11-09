@@ -43,12 +43,12 @@
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock x:Name="txtBienvenida" Text="Panel de Administración" 
-                               FontSize="32" FontWeight="Bold" Foreground="#2F5233" Margin="0,0,0,5"/>
+                               FontSize="32" FontWeight="Bold" Foreground="#2F5233"/>
                     <TextBlock Text="Gestiona tu sistema agrícola desde aquí" FontSize="14" Foreground="#7F8C8D"/>
                 </StackPanel>
 
-                <Border Grid.Column="2" Background="White" CornerRadius="12" Padding="15,10"
-                        VerticalAlignment="Center">
+                <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="15,10"
+                        VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="453,52,10,0">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.1"/>
                     </Border.Effect>

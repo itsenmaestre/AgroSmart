@@ -32,7 +32,8 @@ namespace AGROSMART_GUI.Views.Admin
             _idAdmin = idAdmin;
 
             // Establecer fecha por defecto
-            dpFechaProgramada.SelectedDate = DateTime.Today;
+            if (dpFechaProgramada != null)
+                dpFechaProgramada.SelectedDate = DateTime.Today;
 
             CargarCultivos();
             CargarTareas();
@@ -48,7 +49,9 @@ namespace AGROSMART_GUI.Views.Admin
                     IdCultivo = c.ID_CULTIVO,
                     Display = $"#{c.ID_CULTIVO} - {c.NOMBRE_LOTE}"
                 }).ToList();
-                cboCultivo.ItemsSource = cultivosVM;
+
+                if (cboCultivo != null)
+                    cboCultivo.ItemsSource = cultivosVM;
             }
             catch (Exception ex)
             {
@@ -76,7 +79,8 @@ namespace AGROSMART_GUI.Views.Admin
                     };
                 }).ToList();
 
-                dgTareas.ItemsSource = viewModels;
+                if (dgTareas != null)
+                    dgTareas.ItemsSource = viewModels;
             }
             catch (Exception ex)
             {
@@ -87,6 +91,9 @@ namespace AGROSMART_GUI.Views.Admin
 
         private void CboRecurrente_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Verificar que los controles existan antes de usarlos
+            if (cboRecurrente == null || txtFrecuencia == null) return;
+
             if (cboRecurrente.SelectedItem is ComboBoxItem item)
             {
                 string tag = item.Tag?.ToString();
@@ -102,36 +109,36 @@ namespace AGROSMART_GUI.Views.Admin
         {
             try
             {
-                // Validaciones
-                if (cboCultivo.SelectedValue == null)
+                // Validaciones con verificación de null
+                if (cboCultivo == null || cboCultivo.SelectedValue == null)
                 {
                     MessageBox.Show("Debe seleccionar un cultivo.", "Validación",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(txtTipoActividad.Text))
+                if (txtTipoActividad == null || string.IsNullOrWhiteSpace(txtTipoActividad.Text))
                 {
                     MessageBox.Show("Debe especificar el tipo de actividad.", "Validación",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                if (!dpFechaProgramada.SelectedDate.HasValue)
+                if (dpFechaProgramada == null || !dpFechaProgramada.SelectedDate.HasValue)
                 {
                     MessageBox.Show("Debe seleccionar la fecha programada.", "Validación",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                if (!decimal.TryParse(txtTiempoTotal.Text, out decimal tiempo) || tiempo <= 0)
+                if (txtTiempoTotal == null || !decimal.TryParse(txtTiempoTotal.Text, out decimal tiempo) || tiempo <= 0)
                 {
                     MessageBox.Show("El tiempo total debe ser un número válido mayor a 0.", "Validación",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                string estado = (cboEstado.SelectedItem as ComboBoxItem)?.Content.ToString();
+                string estado = (cboEstado?.SelectedItem as ComboBoxItem)?.Content.ToString();
                 if (string.IsNullOrEmpty(estado))
                 {
                     MessageBox.Show("Debe seleccionar un estado.", "Validación",
@@ -139,12 +146,12 @@ namespace AGROSMART_GUI.Views.Admin
                     return;
                 }
 
-                string esRecurrente = (cboRecurrente.SelectedItem as ComboBoxItem)?.Tag.ToString();
+                string esRecurrente = (cboRecurrente?.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? "F";
 
                 int frecuencia = 0;
                 if (esRecurrente == "V")
                 {
-                    if (!int.TryParse(txtFrecuencia.Text, out frecuencia) || frecuencia <= 0)
+                    if (txtFrecuencia == null || !int.TryParse(txtFrecuencia.Text, out frecuencia) || frecuencia <= 0)
                     {
                         MessageBox.Show("Para tareas recurrentes, la frecuencia debe ser mayor a 0.", "Validación",
                             MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -153,7 +160,7 @@ namespace AGROSMART_GUI.Views.Admin
                 }
 
                 decimal costoTransporte = 0;
-                if (!string.IsNullOrWhiteSpace(txtCostoTransporte.Text))
+                if (txtCostoTransporte != null && !string.IsNullOrWhiteSpace(txtCostoTransporte.Text))
                 {
                     if (!decimal.TryParse(txtCostoTransporte.Text, out costoTransporte) || costoTransporte < 0)
                     {
@@ -240,16 +247,20 @@ namespace AGROSMART_GUI.Views.Admin
         private void LimpiarCampos()
         {
             _idTareaEdicion = null;
-            cboCultivo.SelectedIndex = -1;
-            txtTipoActividad.Clear();
-            dpFechaProgramada.SelectedDate = DateTime.Today;
-            txtTiempoTotal.Text = "8";
-            cboEstado.SelectedIndex = 0;
-            cboRecurrente.SelectedIndex = 0;
-            txtFrecuencia.Text = "0";
-            txtFrecuencia.IsEnabled = false;
-            txtCostoTransporte.Text = "0.00";
-            btnGuardar.Content = "💾 Crear Tarea";
+
+            if (cboCultivo != null) cboCultivo.SelectedIndex = -1;
+            if (txtTipoActividad != null) txtTipoActividad.Clear();
+            if (dpFechaProgramada != null) dpFechaProgramada.SelectedDate = DateTime.Today;
+            if (txtTiempoTotal != null) txtTiempoTotal.Text = "8";
+            if (cboEstado != null) cboEstado.SelectedIndex = 0;
+            if (cboRecurrente != null) cboRecurrente.SelectedIndex = 0;
+            if (txtFrecuencia != null)
+            {
+                txtFrecuencia.Text = "0";
+                txtFrecuencia.IsEnabled = false;
+            }
+            if (txtCostoTransporte != null) txtCostoTransporte.Text = "0.00";
+            if (btnGuardar != null) btnGuardar.Content = "💾 Crear Tarea";
         }
 
         private void BtnVer_Click(object sender, RoutedEventArgs e)
@@ -279,35 +290,41 @@ namespace AGROSMART_GUI.Views.Admin
                     {
                         _idTareaEdicion = tarea.ID_TAREA;
 
-                        cboCultivo.SelectedValue = tarea.ID_CULTIVO;
-                        txtTipoActividad.Text = tarea.TIPO_ACTIVIDAD;
-                        dpFechaProgramada.SelectedDate = tarea.FECHA_PROGRAMADA;
-                        txtTiempoTotal.Text = tarea.TIEMPO_TOTAL_TAREA.ToString("0.##");
+                        if (cboCultivo != null) cboCultivo.SelectedValue = tarea.ID_CULTIVO;
+                        if (txtTipoActividad != null) txtTipoActividad.Text = tarea.TIPO_ACTIVIDAD;
+                        if (dpFechaProgramada != null) dpFechaProgramada.SelectedDate = tarea.FECHA_PROGRAMADA;
+                        if (txtTiempoTotal != null) txtTiempoTotal.Text = tarea.TIEMPO_TOTAL_TAREA.ToString("0.##");
 
                         // Seleccionar estado
-                        foreach (ComboBoxItem item in cboEstado.Items)
+                        if (cboEstado != null)
                         {
-                            if (item.Content.ToString() == tarea.ESTADO)
+                            foreach (ComboBoxItem item in cboEstado.Items)
                             {
-                                cboEstado.SelectedItem = item;
-                                break;
+                                if (item.Content.ToString() == tarea.ESTADO)
+                                {
+                                    cboEstado.SelectedItem = item;
+                                    break;
+                                }
                             }
                         }
 
                         // Seleccionar recurrencia
-                        foreach (ComboBoxItem item in cboRecurrente.Items)
+                        if (cboRecurrente != null)
                         {
-                            if (item.Tag?.ToString() == tarea.ES_RECURRENTE)
+                            foreach (ComboBoxItem item in cboRecurrente.Items)
                             {
-                                cboRecurrente.SelectedItem = item;
-                                break;
+                                if (item.Tag?.ToString() == tarea.ES_RECURRENTE)
+                                {
+                                    cboRecurrente.SelectedItem = item;
+                                    break;
+                                }
                             }
                         }
 
-                        txtFrecuencia.Text = tarea.FRECUENCIA_DIAS.ToString();
-                        txtCostoTransporte.Text = tarea.COSTO_TRANSPORTE.ToString("0.00");
+                        if (txtFrecuencia != null) txtFrecuencia.Text = tarea.FRECUENCIA_DIAS.ToString();
+                        if (txtCostoTransporte != null) txtCostoTransporte.Text = tarea.COSTO_TRANSPORTE.ToString("0.00");
 
-                        btnGuardar.Content = "💾 Actualizar Tarea";
+                        if (btnGuardar != null) btnGuardar.Content = "💾 Actualizar Tarea";
 
                         MessageBox.Show("Datos cargados. Modifique y presione Actualizar.", "Editar",
                             MessageBoxButton.OK, MessageBoxImage.Information);

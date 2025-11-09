@@ -33,48 +33,42 @@ namespace AGROSMART_GUI.Views.Empleado
             _idEmpleado = idEmpleadoActual;
             _nombreEmpleado = nombreCompleto;
 
-            // Cargar página de inicio por defecto
+            // Mostrar nombre del empleado
+            if (!string.IsNullOrWhiteSpace(_nombreEmpleado))
+                txtUserName.Text = _nombreEmpleado;
+
+            // Seleccionar "Inicio" por defecto
+            MenuListBox.SelectedIndex = 0;
+
+            // Cargar página de inicio
             CargarPaginaInicio();
         }
 
-        private void BtnInicio_Click(object sender, RoutedEventArgs e)
+        private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ResetearBotones();
-            btnInicio.Background = new System.Windows.Media.SolidColorBrush(
-                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#5CB85C"));
-            CargarPaginaInicio();
-        }
+            if (MenuListBox.SelectedItem is ListBoxItem item)
+            {
+                string tag = item.Tag?.ToString();
 
-        private void BtnMisTareas_Click(object sender, RoutedEventArgs e)
-        {
-            ResetearBotones();
-            btnMisTareas.Background = new System.Windows.Media.SolidColorBrush(
-                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#5CB85C"));
-            EmpleadoFrame.Navigate(new MisTareasPage(_idEmpleado));
-        }
-
-        private void BtnProgreso_Click(object sender, RoutedEventArgs e)
-        {
-            ResetearBotones();
-            btnProgreso.Background = new System.Windows.Media.SolidColorBrush(
-                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#5CB85C"));
-            EmpleadoFrame.Navigate(new ProgresoPage(_idEmpleado));
-        }
-
-        private void BtnPerfil_Click(object sender, RoutedEventArgs e)
-        {
-            ResetearBotones();
-            btnPerfil.Background = new System.Windows.Media.SolidColorBrush(
-                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#5CB85C"));
-            EmpleadoFrame.Navigate(new PerfilPage(_idEmpleado));
-        }
-
-        private void BtnAyuda_Click(object sender, RoutedEventArgs e)
-        {
-            ResetearBotones();
-            btnAyuda.Background = new System.Windows.Media.SolidColorBrush(
-                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#5CB85C"));
-            EmpleadoFrame.Navigate(new AyudaPage());
+                switch (tag)
+                {
+                    case "🏠":
+                        CargarPaginaInicio();
+                        break;
+                    case "📋":
+                        EmpleadoFrame.Navigate(new MisTareasPage(_idEmpleado));
+                        break;
+                    case "📊":
+                        EmpleadoFrame.Navigate(new ProgresoPage(_idEmpleado));
+                        break;
+                    case "👤":
+                        EmpleadoFrame.Navigate(new PerfilPage(_idEmpleado));
+                        break;
+                    case "❓":
+                        EmpleadoFrame.Navigate(new AyudaPage());
+                        break;
+                }
+            }
         }
 
         private void BtnCerrarSesion_Click(object sender, RoutedEventArgs e)
@@ -91,15 +85,6 @@ namespace AGROSMART_GUI.Views.Empleado
                 mainWindow.Show();
                 this.Close();
             }
-        }
-
-        private void ResetearBotones()
-        {
-            btnInicio.Background = System.Windows.Media.Brushes.Transparent;
-            btnMisTareas.Background = System.Windows.Media.Brushes.Transparent;
-            btnProgreso.Background = System.Windows.Media.Brushes.Transparent;
-            btnPerfil.Background = System.Windows.Media.Brushes.Transparent;
-            btnAyuda.Background = System.Windows.Media.Brushes.Transparent;
         }
 
         private void CargarPaginaInicio()

@@ -190,11 +190,10 @@
                                                Foreground="#2F5233"
                                                Margin="0,0,0,6"/>
                                     <DatePicker x:Name="dpFechaAsignacion" 
-                                                Height="44"
-                                                FontSize="14"
-                                                BorderBrush="#E0E0E0"
-                                                BorderThickness="1.5"
-                                                SelectedDate="{x:Static System:DateTime.Now}"/>
+            Height="44"
+            FontSize="14"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1.5"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2">

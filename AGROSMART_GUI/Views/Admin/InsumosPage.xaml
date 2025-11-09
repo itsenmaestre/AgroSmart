@@ -230,7 +230,7 @@
                                     <TextBox x:Name="txtStockMinimo" 
                                              Style="{StaticResource ModernTextBox}"
                                              Text="0"
-                                             ToolTip="RN-23: Si stock < mínimo, genera alerta"/>
+                                            ToolTip="RN-23: Si el stock es menor al mínimo, genera alerta"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="4">

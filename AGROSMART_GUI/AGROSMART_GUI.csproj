@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -69,6 +70,9 @@
     </Compile>
     <Compile Include="Views\Admin\CultivosPage.xaml.cs">
       <DependentUpon>CultivosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\InicioAdminPage.xaml.cs">
+      <DependentUpon>InicioAdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\InsumosPage.xaml.cs">
       <DependentUpon>InsumosPage.xaml</DependentUpon>
@@ -143,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\CultivosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\InicioAdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

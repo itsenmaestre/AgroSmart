@@ -1,5 +1,6 @@
 ﻿using AGROSMART_BLL;
 using AGROSMART_ENTITY.ENTIDADES;
+using AGROSMART_GUI.Views.Admin;
 using AGROSMART_GUI.Views.Empleado;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,6 @@ namespace AGROSMART_GUI.Views.Shared
         {
             try
             {
-                // Validar ID numérico
                 if (!int.TryParse(txbId.Text, out int id))
                 {
                     MessageBox.Show("El ID debe ser numérico.", "Validación",
@@ -51,28 +51,20 @@ namespace AGROSMART_GUI.Views.Shared
                     return;
                 }
 
-                // Autenticar usuario
                 USUARIO usuario = _usuarioService.Login(id, contrasena);
 
-                // Verificar rol
                 if (_usuarioService.EsAdministrador(id))
                 {
                     string nombreCompleto = $"{usuario.PRIMER_NOMBRE} {usuario.PRIMER_APELLIDO}";
-
-                    var adminWindow = new AdmminView(id, nombreCompleto);
+                    var adminWindow = new AdminView(id, nombreCompleto);
                     adminWindow.Show();
-
-                    // Cerrar MainWindow
                     Window.GetWindow(this)?.Close();
                 }
                 else if (_usuarioService.EsEmpleado(id))
                 {
                     string nombreCompleto = $"{usuario.PRIMER_NOMBRE} {usuario.PRIMER_APELLIDO}";
-
                     var empleadoWindow = new EmpleadoView(id, nombreCompleto);
                     empleadoWindow.Show();
-
-                    // Cerrar MainWindow
                     Window.GetWindow(this)?.Close();
                 }
                 else
@@ -93,6 +85,48 @@ namespace AGROSMART_GUI.Views.Shared
             NavigationService.Navigate(new MenuPage());
         }
 
-        // ... Resto de eventos (GotFocus, LostFocus, KeyDown)
+        // Eventos de focus para ID
+        private void TxbId_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox tb && tb.Parent is Grid grid && grid.Parent is Border border)
+            {
+                border.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5D8A6B"));
+            }
+        }
+
+        private void TxbId_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox tb && tb.Parent is Grid grid && grid.Parent is Border border)
+            {
+                border.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D1D5DB"));
+            }
+        }
+
+        private void TxbId_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                txbContra.Focus();
+            }
+        }
+
+        // Eventos de focus para Contraseña
+        private void TxbContra_GotFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5D8A6B"));
+        }
+
+        private void TxbContra_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D1D5DB"));
+        }
+
+        private void TxbContra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoginButton_Click(sender, e);
+            }
+        }
     }
 }

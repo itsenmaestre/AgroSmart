@@ -1,4 +1,4 @@
-﻿<Window x:Class="AGROSMART_GUI.Views.Admin.AdmminView"
+﻿<Window x:Class="AGROSMART_GUI.Views.Admin.AdminView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="AgroSmart - Panel de Administración" 

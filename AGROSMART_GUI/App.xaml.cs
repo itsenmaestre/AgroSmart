@@ -18,13 +18,9 @@ namespace AGROSMART_GUI
         {
             base.OnStartup(e);
 
-            // Si BienvenidaPage es Window (lo es en tu captura):
-            var win = new BienvenidaPage();
-            win.Show();
-
-            // Si en algún momento la vuelves Page, usa esto:
-            // var nav = new NavigationWindow { ShowsNavigationUI = false, Content = new BienvenidaPage(), Width = 900, Height = 600 };
-            // nav.Show();
+            // Abrir MainWindow en lugar de BienvenidaPage
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
         }
     }
 }

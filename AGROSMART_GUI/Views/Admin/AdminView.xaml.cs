@@ -17,51 +17,153 @@ namespace AGROSMART_GUI.Views.Admin
     /// <summary>
     /// Lógica de interacción para AdminView.xaml
     /// </summary>
-    public partial class AdmminView : Window
+    public partial class AdminView : Window
     {
         private readonly int _idAdmin;
         private readonly string _nombreAdmin;
 
-        public AdmminView(int idAdmin, string nombreCompleto)
+        public AdminView(int idAdmin, string nombreCompleto)
         {
             InitializeComponent();
 
             _idAdmin = idAdmin;
             _nombreAdmin = nombreCompleto;
 
-            // Actualizar nombre en UI
             if (!string.IsNullOrWhiteSpace(_nombreAdmin))
                 txtUserName.Text = _nombreAdmin;
 
-            // Seleccionar primer item por defecto
-            MenuListBox.SelectedIndex = 0;
+            // Cargar página de inicio por defecto
+            CargarPaginaInicio();
         }
 
         private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MenuListBox.SelectedItem is ListBoxItem item)
             {
-                string tag = item.Tag.ToString();
+                string tag = item.Tag?.ToString();
 
                 switch (tag)
                 {
                     case "📦":
-                        AdminFrame.Navigate(new SuministrosPage(_idAdmin));
+                        CargarPaginaInsumos();
                         break;
                     case "✅":
-                        AdminFrame.Navigate(new CrearTareasPage(_idAdmin));
+                        CargarPaginaCrearTareas();
                         break;
                     case "👥":
-                        AdminFrame.Navigate(new AsignarTareaPage(_idAdmin));
+                        CargarPaginaAsignarTarea();
                         break;
                     case "🌾":
-                        AdminFrame.Navigate(new CultivosPage(_idAdmin));
+                        CargarPaginaCultivos();
                         break;
                     case "🌽":
-                        AdminFrame.Navigate(new CosechasPage(_idAdmin));
+                        CargarPaginaCosechas();
                         break;
                 }
             }
+        }
+
+        private void CargarPaginaInicio()
+        {
+            // Página temporal de bienvenida
+            var page = new Page();
+            var stack = new StackPanel
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            var welcome = new TextBlock
+            {
+                Text = $"Bienvenido, {_nombreAdmin}",
+                FontSize = 24,
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0, 0, 0, 20)
+            };
+
+            var info = new TextBlock
+            {
+                Text = "Selecciona una opción del menú lateral",
+                FontSize = 16
+            };
+
+            stack.Children.Add(welcome);
+            stack.Children.Add(info);
+            page.Content = stack;
+
+            AdminFrame.Navigate(page);
+        }
+
+        private void CargarPaginaInsumos()
+        {
+            MostrarPaginaTemporal("Gestión de Insumos",
+                "Aquí podrás administrar el inventario de insumos");
+        }
+
+        private void CargarPaginaCrearTareas()
+        {
+            MostrarPaginaTemporal("Crear Tareas",
+                "Aquí podrás crear nuevas tareas para los cultivos");
+        }
+
+        private void CargarPaginaAsignarTarea()
+        {
+            MostrarPaginaTemporal("Asignar Tareas",
+                "Aquí podrás asignar tareas a los empleados");
+        }
+
+        private void CargarPaginaCultivos()
+        {
+            MostrarPaginaTemporal("Gestión de Cultivos",
+                "Aquí podrás administrar los cultivos");
+        }
+
+        private void CargarPaginaCosechas()
+        {
+            MostrarPaginaTemporal("Registro de Cosechas",
+                "Aquí podrás registrar las cosechas realizadas");
+        }
+
+        private void MostrarPaginaTemporal(string titulo, string descripcion)
+        {
+            var page = new Page();
+            var stack = new StackPanel
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(40)
+            };
+
+            var title = new TextBlock
+            {
+                Text = titulo,
+                FontSize = 28,
+                FontWeight = FontWeights.Bold,
+                Foreground = System.Windows.Media.Brushes.DarkGreen,
+                Margin = new Thickness(0, 0, 0, 15)
+            };
+
+            var desc = new TextBlock
+            {
+                Text = descripcion,
+                FontSize = 16,
+                Foreground = System.Windows.Media.Brushes.Gray
+            };
+
+            var devNote = new TextBlock
+            {
+                Text = "📝 Funcionalidad en desarrollo",
+                FontSize = 14,
+                Foreground = System.Windows.Media.Brushes.Orange,
+                Margin = new Thickness(0, 30, 0, 0)
+            };
+
+            stack.Children.Add(title);
+            stack.Children.Add(desc);
+            stack.Children.Add(devNote);
+            page.Content = stack;
+
+            AdminFrame.Navigate(page);
         }
 
         private void BtnCerrarSesion_Click(object sender, RoutedEventArgs e)

@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Admin\AdminDashboard.xaml.cs">
-      <DependentUpon>AdminDashboard.xaml</DependentUpon>
+    <Compile Include="Resources\Styles\ButtonStyles.xaml.cs">
+      <DependentUpon>ButtonStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Styles\ColorResources.xaml.cs">
+      <DependentUpon>ColorResources.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Empleado\EmpleadoView.xaml.cs">
       <DependentUpon>EmpleadoView.xaml</DependentUpon>
@@ -64,11 +70,11 @@
     <Compile Include="Views\Empleado\RegistrarAvanceView.xaml.cs">
       <DependentUpon>RegistrarAvanceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\BienevenidaPage.xaml.cs">
-      <DependentUpon>BienevenidaPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\RegistroPage.xaml.cs">
       <DependentUpon>RegistroPage.xaml</DependentUpon>
@@ -85,7 +91,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Admin\AdminDashboard.xaml">
+    <Page Include="Resources\Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ColorResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\AdminView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -97,11 +111,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shared\BienevenidaPage.xaml">
+    <Page Include="Views\Shared\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shared\Login.xaml">
+    <Page Include="Views\Shared\MenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,5 +161,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\avatar3.png" />
+    <Resource Include="Resources\Images\camilo3.jpg" />
+    <Resource Include="Resources\Images\facebok.png" />
+    <Resource Include="Resources\Images\icono-gris-de-perfil-usuario-símbolo-empleado-avatar-web-y-diseño-ilustración-signo-aislado-en-fondo-blanco-191067342.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

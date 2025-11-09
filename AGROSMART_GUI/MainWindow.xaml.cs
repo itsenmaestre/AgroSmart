@@ -1,4 +1,5 @@
 ﻿using AGROSMART_BLL;
+using AGROSMART_GUI.Views.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,6 +23,18 @@ namespace AGROSMART_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            // Cargar MenuPage al inicio
+            MainFrame.Navigate(new MenuPage());
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }

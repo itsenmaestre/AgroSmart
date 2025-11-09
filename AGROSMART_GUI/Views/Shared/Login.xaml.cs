@@ -1,82 +1,98 @@
-﻿using System;
-using System.Windows;                 
-using System.Windows.Controls;         
-using AGROSMART_BLL;                   
+﻿using AGROSMART_BLL;
 using AGROSMART_ENTITY.ENTIDADES;
+using AGROSMART_GUI.Views.Empleado;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace AGROSMART_GUI.Views.Shared
 {
-    public partial class Login : Window
+    /// <summary>
+    /// Lógica de interacción para Login.xaml
+    /// </summary>
+    public partial class Login : Page
     {
-        private readonly UsuarioService _service = new UsuarioService();
+        private readonly UsuarioService _usuarioService = new UsuarioService();
 
         public Login()
         {
             InitializeComponent();
+            this.Loaded += (s, e) => txbId.Focus();
         }
 
-        private void BtnIngresar_Click(object sender, RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Validar que se ingrese un ID numérico
-                if (!int.TryParse(txtIdUsuario.Text, out int id))
-                    throw new Exception("El ID de usuario (cédula) debe ser numérico.");
+                // Validar ID numérico
+                if (!int.TryParse(txbId.Text, out int id))
+                {
+                    MessageBox.Show("El ID debe ser numérico.", "Validación",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-                // Validar contraseña
-                if (string.IsNullOrWhiteSpace(txtPass.Password))
-                    throw new Exception("La contraseña es obligatoria.");
+                string contrasena = txbContra.Password;
+
+                if (string.IsNullOrWhiteSpace(contrasena))
+                {
+                    MessageBox.Show("La contraseña es obligatoria.", "Validación",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
                 // Autenticar usuario
-                USUARIO u = _service.Login(id, txtPass.Password);
+                USUARIO usuario = _usuarioService.Login(id, contrasena);
 
-                if (u == null)
-                    throw new Exception("Credenciales incorrectas.");
-
-                // Verificar rol y redirigir
-                if (_service.EsAdministrador(id))
+                // Verificar rol
+                if (_usuarioService.EsAdministrador(id))
                 {
-                    // Abrir Dashboard de Administrador
-                    MessageBox.Show(
-                        $"Bienvenido Administrador: {u.PRIMER_NOMBRE} {u.PRIMER_APELLIDO}",
-                        "AgroSmart - Admin",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    string nombreCompleto = $"{usuario.PRIMER_NOMBRE} {usuario.PRIMER_APELLIDO}";
 
-                    // TODO: Crear y abrir AdminDashboard
-                    // var adminWindow = new Views.Admin.AdminDashboard(u.ID_USUARIO, $"{u.PRIMER_NOMBRE} {u.PRIMER_APELLIDO}");
-                    // adminWindow.Show();
-                    // this.Close();
+                    var adminWindow = new AdmminView(id, nombreCompleto);
+                    adminWindow.Show();
+
+                    // Cerrar MainWindow
+                    Window.GetWindow(this)?.Close();
                 }
-                else if (_service.EsEmpleado(id))
+                else if (_usuarioService.EsEmpleado(id))
                 {
-                    // Abrir Dashboard de Empleado
-                    string nombreCompleto = $"{u.PRIMER_NOMBRE} {u.PRIMER_APELLIDO}";
+                    string nombreCompleto = $"{usuario.PRIMER_NOMBRE} {usuario.PRIMER_APELLIDO}";
 
-                    var empleadoWindow = new Views.Empleado.EmpleadoView(u.ID_USUARIO, nombreCompleto);
+                    var empleadoWindow = new EmpleadoView(id, nombreCompleto);
                     empleadoWindow.Show();
-                    this.Close();
+
+                    // Cerrar MainWindow
+                    Window.GetWindow(this)?.Close();
                 }
                 else
                 {
-                    throw new Exception("El usuario no tiene un rol asignado. Contacte al administrador.");
+                    MessageBox.Show("Usuario sin rol asignado. Contacte al administrador.",
+                        "Error de Acceso", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error de Inicio de Sesión",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show($"Error al iniciar sesión: {ex.Message}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        // Evento para abrir ventana de registro
-        private void BtnRegistro_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            var registroWindow = new RegistroPage();
-            registroWindow.ShowDialog();
+            NavigationService.Navigate(new MenuPage());
         }
+
+        // ... Resto de eventos (GotFocus, LostFocus, KeyDown)
     }
 }

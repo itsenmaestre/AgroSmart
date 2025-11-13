@@ -89,6 +89,9 @@ namespace AGROSMART_GUI.Views.Admin
                     return;
                 }
 
+                costoUnitario = Math.Round(costoUnitario, 4);
+                txtCostoUnitario.Text = costoUnitario.ToString("0.####");
+
                 string tipo = (cboTipo.SelectedItem as ComboBoxItem)?.Content.ToString();
                 if (string.IsNullOrEmpty(tipo))
                 {
@@ -173,7 +176,6 @@ namespace AGROSMART_GUI.Views.Admin
             txtStockActual.Text = "0";
             txtStockMinimo.Text = "0";
             txtCostoUnitario.Text = "0.00";
-            txtObservaciones.Clear();
             btnGuardar.Content = "💾 Guardar Insumo";
         }
 
@@ -190,7 +192,7 @@ namespace AGROSMART_GUI.Views.Admin
                         txtNombre.Text = insumo.NOMBRE;
                         txtStockActual.Text = insumo.STOCK_ACTUAL.ToString("0.##");
                         txtStockMinimo.Text = insumo.STOCK_MINIMO.ToString("0.##");
-                        txtCostoUnitario.Text = insumo.COSTO_UNITARIO.ToString("0.00");
+                        txtCostoUnitario.Text = insumo.COSTO_UNITARIO.ToString("0.####");
 
                         // Seleccionar tipo
                         foreach (ComboBoxItem item in cboTipo.Items)

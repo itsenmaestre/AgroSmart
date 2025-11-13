@@ -51,6 +51,9 @@
     <Compile Include="ENTIDADES\TAREA.cs" />
     <Compile Include="ENTIDADES\USUARIO.cs" />
     <Compile Include="ENTIDADES_DTOS\AsignacionEmpleadoDTO.cs" />
+    <Compile Include="ENTIDADES_DTOS\GastoEmpleadoDTO.cs" />
+    <Compile Include="ENTIDADES_DTOS\GastoInsumoDTO.cs" />
+    <Compile Include="ENTIDADES_DTOS\GastoTareaDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

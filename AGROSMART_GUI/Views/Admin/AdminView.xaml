@@ -119,6 +119,7 @@
 
                         <ListBoxItem Content="Inicio" Tag="🏠" />
                         <ListBoxItem Content="Empleados" Tag="👥" />
+                        <ListBoxItem Content="Gastos" Tag="💰" />
                         <ListBoxItem Content="Insumos" Tag="📦" />
                         <ListBoxItem Content="Crear Tareas" Tag="✅" />
                         <ListBoxItem Content="Asignar Tarea" Tag="📋" />

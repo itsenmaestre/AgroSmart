@@ -71,11 +71,17 @@
     <Compile Include="Views\Admin\CultivosPage.xaml.cs">
       <DependentUpon>CultivosPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\GastosPage.xaml.cs">
+      <DependentUpon>GastosPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\InicioAdminPage.xaml.cs">
       <DependentUpon>InicioAdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\InsumosPage.xaml.cs">
       <DependentUpon>InsumosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\RegistrarInsumoTareaWindow.xaml.cs">
+      <DependentUpon>RegistrarInsumoTareaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Empleado\AyudaPage.xaml.cs">
       <DependentUpon>AyudaPage.xaml</DependentUpon>
@@ -154,7 +160,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\GastosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\InicioAdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\RegistrarInsumoTareaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

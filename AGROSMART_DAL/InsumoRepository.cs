@@ -14,7 +14,7 @@ namespace AGROSMART_DAL
         public override IList<INSUMO> Consultar()
         {
             const string sql = @"
-                SELECT ID_INSUMO, ID_ADMIN_REGISTRO, NOMBRE, TIPO, 
+                SELECT ID_INSUMO, ID_ADMIN_REGISTRO, NOMBRE, TIPO,
                        STOCK_ACTUAL, STOCK_MINIMO, COSTO_UNITARIO
                 FROM INSUMO
                 ORDER BY NOMBRE";
@@ -37,7 +37,7 @@ namespace AGROSMART_DAL
         public override INSUMO ObtenerPorId(int id)
         {
             const string sql = @"
-                SELECT ID_INSUMO, ID_ADMIN_REGISTRO, NOMBRE, TIPO, 
+                SELECT ID_INSUMO, ID_ADMIN_REGISTRO, NOMBRE, TIPO,
                        STOCK_ACTUAL, STOCK_MINIMO, COSTO_UNITARIO
                 FROM INSUMO
                 WHERE ID_INSUMO = :id";
@@ -55,7 +55,7 @@ namespace AGROSMART_DAL
         public override string Guardar(INSUMO entidad)
         {
             const string sql = @"
-                INSERT INTO INSUMO (ID_ADMIN_REGISTRO, NOMBRE, TIPO, 
+                INSERT INTO INSUMO (ID_ADMIN_REGISTRO, NOMBRE, TIPO,
                                     STOCK_ACTUAL, STOCK_MINIMO, COSTO_UNITARIO)
                 VALUES (:admin, :nombre, :tipo, :stock, :minimo, :costo)";
 
@@ -119,7 +119,7 @@ namespace AGROSMART_DAL
         public List<INSUMO> ObtenerInsumosConStockBajo()
         {
             const string sql = @"
-                SELECT ID_INSUMO, ID_ADMIN_REGISTRO, NOMBRE, TIPO, 
+                SELECT ID_INSUMO, ID_ADMIN_REGISTRO, NOMBRE, TIPO,
                        STOCK_ACTUAL, STOCK_MINIMO, COSTO_UNITARIO
                 FROM INSUMO
                 WHERE STOCK_ACTUAL <= STOCK_MINIMO

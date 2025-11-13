@@ -200,18 +200,16 @@
                                 </StackPanel>
                             </Grid>
 
-                            <!-- Fila 2: Stock Actual, Stock Mínimo, Costo -->
+                            <!-- Fila 2: Stock Actual y Stock Mínimo -->
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="15"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="15"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0">
-                                    <TextBlock Text="Stock Actual *" 
+                                    <TextBlock Text="Stock Actual *"
                                                FontSize="13" 
                                                FontWeight="Medium" 
                                                Foreground="#2F5233"
@@ -223,44 +221,46 @@
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2">
-                                    <TextBlock Text="Stock Mínimo *" 
-                                               FontSize="13" 
-                                               FontWeight="Medium" 
+                                    <TextBlock Text="Stock Mínimo *"
+                                               FontSize="13"
+                                               FontWeight="Medium"
                                                Foreground="#2F5233"
                                                Margin="0,0,0,6"/>
-                                    <TextBox x:Name="txtStockMinimo" 
+                                    <TextBox x:Name="txtStockMinimo"
                                              Style="{StaticResource ModernTextBox}"
                                              Text="0"
-                                            ToolTip="RN-23: Si el stock es menor al mínimo, genera alerta"/>
+                                             ToolTip="RN-23: Si el stock es menor al mínimo, genera alerta"/>
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="4">
-                                    <TextBlock Text="Costo Unitario *" 
-                                               FontSize="13" 
-                                               FontWeight="Medium" 
-                                               Foreground="#2F5233"
-                                               Margin="0,0,0,6"/>
-                                    <TextBox x:Name="txtCostoUnitario" 
-                                             Style="{StaticResource ModernTextBox}"
-                                             Text="0.00"
-                                             ToolTip="RN-22: Precio por unidad"/>
-                                </StackPanel>
                             </Grid>
 
-                            <!-- Fila 3: Observaciones -->
-                            <StackPanel Grid.Row="4">
-                                <TextBlock Text="Observaciones / Notas" 
-                                           FontSize="13" 
-                                           FontWeight="Medium" 
-                                           Foreground="#2F5233"
-                                           Margin="0,0,0,6"/>
-                                <TextBox x:Name="txtObservaciones" 
-                                         Style="{StaticResource ModernTextBox}"
-                                         Height="60"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         VerticalScrollBarVisibility="Auto"/>
-                            </StackPanel>
+                            <!-- Fila 3: Costo unitario -->
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="15"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="Costo unitario *"
+                                               FontSize="13"
+                                               FontWeight="Medium"
+                                               Foreground="#2F5233"
+                                               Margin="0,0,0,6"/>
+                                    <TextBox x:Name="txtCostoUnitario"
+                                             Style="{StaticResource ModernTextBox}"
+                                             Text="0.00"
+                                             ToolTip="Valor por unidad exacta (semilla, metro, litro, etc.)"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                    <TextBlock Text="💡 Registra siempre las cantidades usando la misma unidad para que el costo sea preciso."
+                                               TextWrapping="Wrap"
+                                               Foreground="#4A7C59"
+                                               FontSize="12"/>
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </Border>
 
@@ -363,7 +363,7 @@
                                 <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="130"/>
                                 <DataGridTextColumn Header="Stock Actual" Binding="{Binding StockActual, StringFormat=N2}" Width="110"/>
                                 <DataGridTextColumn Header="Stock Mínimo" Binding="{Binding StockMinimo, StringFormat=N2}" Width="110"/>
-                                <DataGridTextColumn Header="Costo Unit." Binding="{Binding CostoUnitario, StringFormat=C2}" Width="110"/>
+                                <DataGridTextColumn Header="Costo Unidad" Binding="{Binding CostoUnitario, StringFormat=C2}" Width="120"/>
 
                                 <DataGridTemplateColumn Header="Acciones" Width="220">
                                     <DataGridTemplateColumn.CellTemplate>

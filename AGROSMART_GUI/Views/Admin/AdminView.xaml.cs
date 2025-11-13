@@ -55,6 +55,9 @@ namespace AGROSMART_GUI.Views.Admin
                     case "📦": // Insumos
                         CargarPaginaInsumos();
                         break;
+                    case "💰": // Gastos
+                        CargarPaginaGastos();
+                        break;
                     case "✅": // Crear Tareas
                         CargarPaginaCrearTareas();
                         break;
@@ -119,6 +122,20 @@ namespace AGROSMART_GUI.Views.Admin
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar Insumos: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CargarPaginaGastos()
+        {
+            try
+            {
+                var page = new GastosPage(_idAdmin);
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Gastos: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

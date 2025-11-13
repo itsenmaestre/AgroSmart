@@ -25,7 +25,7 @@ namespace AGROSMART_GUI.Views.Empleado
         private readonly AsignacionTareaService _svc = new AsignacionTareaService();
         private ASIGNACION_TAREA _asignacion;
 
-        // Constructor usado por nuestro dashboard (pasamos la entidad)
+        
         public RegistrarAvanceView(ASIGNACION_TAREA seleccionada)
         {
             InitializeComponent();
@@ -33,7 +33,7 @@ namespace AGROSMART_GUI.Views.Empleado
             PrecargarUI();
         }
 
-        // Constructor alterno para ser 100% compatible con cómo lo abre Claude (idTarea + idEmpleado)
+     
         public RegistrarAvanceView(int idTarea, int idEmpleado)
         {
             InitializeComponent();
@@ -55,9 +55,9 @@ namespace AGROSMART_GUI.Views.Empleado
         {
             // Encabezados
             txtInfoTarea.Text = "Tarea código: " + _asignacion.ID_TAREA;
-            txtFechaTarea.Text = "Fecha programada: -"; // si conectas a TareaService, puedes mostrar la fecha real
+            txtFechaTarea.Text = "Fecha programada: -"; 
 
-            // Datos previamente cargados, si existían
+          
             txtHorasTrabajadas.Text = _asignacion.HORAS_TRABAJADAS.HasValue
                 ? _asignacion.HORAS_TRABAJADAS.Value.ToString("0.##", CultureInfo.InvariantCulture)
                 : "0.00";

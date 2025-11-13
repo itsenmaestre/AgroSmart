@@ -52,19 +52,18 @@ namespace AGROSMART_GUI.Views.Shared
                 }
 
                 USUARIO usuario = _usuarioService.Login(id, contrasena);
-
                 if (_usuarioService.EsAdministrador(id))
                 {
                     string nombreCompleto = $"{usuario.PRIMER_NOMBRE} {usuario.PRIMER_APELLIDO}";
-                    var adminWindow = new AdminView(id, nombreCompleto);
-                    adminWindow.Show();
+                    var bienvenida = new BienvenidaPage(id, nombreCompleto, true);
+                    bienvenida.Show();
                     Window.GetWindow(this)?.Close();
                 }
                 else if (_usuarioService.EsEmpleado(id))
                 {
                     string nombreCompleto = $"{usuario.PRIMER_NOMBRE} {usuario.PRIMER_APELLIDO}";
-                    var empleadoWindow = new EmpleadoView(id, nombreCompleto);
-                    empleadoWindow.Show();
+                    var bienvenida = new BienvenidaPage(id, nombreCompleto, false);
+                    bienvenida.Show();
                     Window.GetWindow(this)?.Close();
                 }
                 else

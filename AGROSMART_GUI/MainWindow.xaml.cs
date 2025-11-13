@@ -26,8 +26,15 @@ namespace AGROSMART_GUI
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
 
-            // Cargar MenuPage al inicio
+            
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
+
+           
+            this.ResizeMode = ResizeMode.CanResize;
+
+           
             MainFrame.Navigate(new MenuPage());
         }
 

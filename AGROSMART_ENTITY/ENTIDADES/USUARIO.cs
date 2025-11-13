@@ -8,7 +8,7 @@ namespace AGROSMART_ENTITY.ENTIDADES
 {
     public class USUARIO
     {
-        public int ID_USUARIO { get; set; }          // Este ES la cédula
+        public int ID_USUARIO { get; set; }      
         public string PRIMER_NOMBRE { get; set; }
         public string SEGUNDO_NOMBRE { get; set; }
         public string PRIMER_APELLIDO { get; set; }

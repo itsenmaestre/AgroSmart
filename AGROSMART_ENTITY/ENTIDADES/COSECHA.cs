@@ -13,7 +13,7 @@ namespace AGROSMART_ENTITY.ENTIDADES
         public int ID_ADMIN_REGISTRO { get; set; }
         public DateTime FECHA_COSECHA { get; set; }
         public DateTime FECHA_REGISTRO { get; set; }
-        public decimal CANTIDAD_OBTENIDA { get; set; } // NUMBER(14,2)
+        public decimal CANTIDAD_OBTENIDA { get; set; } 
         public string UNIDAD_MEDIDA { get; set; }
         public string CALIDAD { get; set; }
         public string OBSERVACIONES { get; set; }

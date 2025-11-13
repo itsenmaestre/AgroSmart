@@ -32,7 +32,7 @@ namespace AGROSMART_GUI.Views.Empleado
             if (!string.IsNullOrWhiteSpace(nombreEmpleado))
                 txtBienvenida.Text = $"Hola, {nombreEmpleado}";
 
-            // Mostrar fecha actual
+           
             txtFechaHoy.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM",
                 new System.Globalization.CultureInfo("es-ES"));
 

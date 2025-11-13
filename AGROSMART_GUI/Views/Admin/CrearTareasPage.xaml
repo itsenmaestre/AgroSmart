@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" d:DesignWidth="840"
       Title="CrearTareasPage"
-      Background="Transparent" Height="905">
-
+      Background="Transparent" >
     <Page.Resources>
         <Style TargetType="Button" x:Key="PrimaryButton">
             <Setter Property="Background" Value="#2F5233"/>
@@ -114,7 +113,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- Header -->
@@ -337,7 +336,8 @@
             <Border Grid.Row="2" 
                     Background="White" 
                     CornerRadius="12" 
-                    Padding="25">
+                    Padding="25"
+                    Height="500">
                 <Border.Effect>
                     <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="1" BlurRadius="15" Opacity="0.08"/>
                 </Border.Effect>

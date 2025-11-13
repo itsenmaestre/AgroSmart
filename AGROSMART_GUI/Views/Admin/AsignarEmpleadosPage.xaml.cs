@@ -42,7 +42,7 @@ namespace AGROSMART_GUI.Views.Admin
         {
             try
             {
-                // Cargar tareas disponibles
+                
                 var tareas = _tareaService.Consultar();
                 var tareasVM = tareas.Select(t => new
                 {
@@ -51,7 +51,7 @@ namespace AGROSMART_GUI.Views.Admin
                 }).ToList();
                 cboTarea.ItemsSource = tareasVM;
 
-                // Cargar empleados
+              
                 var empleados = _empleadoService.ListarEmpleadosConUsuario();
                 var empleadosVM = empleados.Select(e => new
                 {

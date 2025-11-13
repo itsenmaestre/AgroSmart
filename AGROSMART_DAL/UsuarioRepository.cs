@@ -11,9 +11,7 @@ namespace AGROSMART_DAL
 {
     public class UsuarioRepository : BaseRepository<USUARIO>
     {
-        // =========================================================
-        // === MÉTODO DE AUTENTICACIÓN (Login)
-        // =========================================================
+    
         public USUARIO Autenticar(int idUsuario, string contrasena)
         {
             const string sql = @"
@@ -37,9 +35,7 @@ namespace AGROSMART_DAL
             }
         }
 
-        // =========================================================
-        // === MAPEO DE ENTIDAD USUARIO
-        // =========================================================
+     
         private USUARIO Mapear(OracleDataReader dr)
         {
             return new USUARIO
@@ -55,9 +51,6 @@ namespace AGROSMART_DAL
             };
         }
 
-        // =========================================================
-        // === CONSULTAR TODOS LOS USUARIOS
-        // =========================================================
         public override IList<USUARIO> Consultar()
         {
             const string sql = "SELECT * FROM USUARIO ORDER BY ID_USUARIO";
@@ -76,9 +69,7 @@ namespace AGROSMART_DAL
             return lista;
         }
 
-        // =========================================================
-        // === CONSULTAR USUARIO POR ID
-        // =========================================================
+       
         public override USUARIO ObtenerPorId(int id)
         {
             const string sql = "SELECT * FROM USUARIO WHERE ID_USUARIO = :p_id";
@@ -92,9 +83,7 @@ namespace AGROSMART_DAL
             }
         }
 
-        // =========================================================
-        // === INSERTAR NUEVO USUARIO (CORREGIDO)
-        // =========================================================
+       
         public override string Guardar(USUARIO e)
         {
             const string sql = @"
@@ -121,9 +110,7 @@ namespace AGROSMART_DAL
             }
         }
 
-        // =========================================================
-        // === ACTUALIZAR USUARIO EXISTENTE
-        // =========================================================
+        
         public override bool Actualizar(USUARIO e)
         {
             const string sql = @"
@@ -150,9 +137,7 @@ namespace AGROSMART_DAL
             }
         }
 
-        // =========================================================
-        // === ELIMINAR USUARIO
-        // =========================================================
+      
         public override bool Eliminar(USUARIO e)
         {
             const string sql = "DELETE FROM USUARIO WHERE ID_USUARIO = :p_id";
@@ -165,9 +150,7 @@ namespace AGROSMART_DAL
             }
         }
 
-        // =========================================================
-        // === REGISTRAR EMPLEADO (USUARIO + EMPLEADO) - CORREGIDO
-        // =========================================================
+     
         public string RegistrarEmpleado(USUARIO u, EMPLEADO e)
         {
             using (OracleConnection cn = Conexion.CrearConexion())
@@ -177,7 +160,7 @@ namespace AGROSMART_DAL
 
                 try
                 {
-                    // ----- INSERT USUARIO -----
+                    
                     const string sqlUser = @"
                         INSERT INTO USUARIO
                         (ID_USUARIO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO,
@@ -201,7 +184,7 @@ namespace AGROSMART_DAL
                             throw new Exception("No se insertó USUARIO.");
                     }
 
-                    // ----- INSERT EMPLEADO -----
+                    
                     const string sqlEmp = @"
                         INSERT INTO EMPLEADO (ID_USUARIO, MONTO_POR_HORA, MONTO_POR_JORNAL)
                         VALUES (:p_id, :p_hora, :p_jornal)";
@@ -224,8 +207,8 @@ namespace AGROSMART_DAL
                 {
                     tx.Rollback();
 
-                    // Manejo específico de errores Oracle
-                    if (ex.Number == 1) // ORA-00001: unique constraint violated
+                    
+                    if (ex.Number == 1) 
                         return "Error: La cédula ya está registrada en el sistema.";
 
                     return $"Error Oracle {ex.Number}: {ex.Message}";
@@ -238,9 +221,7 @@ namespace AGROSMART_DAL
             }
         }
 
-        // =========================================================
-        // === CONSULTAS DE ROL (ADMIN O EMPLEADO)
-        // =========================================================
+       
         public bool EsAdministrador(int idUsuario)
         {
             const string sql = "SELECT 1 FROM ADMINISTRADOR WHERE ID_USUARIO=:p_id";

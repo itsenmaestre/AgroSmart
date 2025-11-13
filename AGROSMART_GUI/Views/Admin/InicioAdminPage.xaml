@@ -47,17 +47,17 @@
                     <TextBlock Text="Gestiona tu sistema agrícola desde aquí" FontSize="14" Foreground="#7F8C8D"/>
                 </StackPanel>
 
-                <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="15,10"
-                        VerticalAlignment="Top" Margin="383,49,83,0" Height="49">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.1"/>
-                    </Border.Effect>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📅" FontSize="18" Margin="0,0,8,0"/>
-                        <TextBlock x:Name="txtFechaHoy" FontSize="13" FontWeight="Medium" 
-                                   Foreground="#2F5233" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
+                <Border Grid.Column="2" Background="White" CornerRadius="12" Padding="15,10"
+            VerticalAlignment="Center" Margin="10,0,-10,0">
+    <Border.Effect>
+        <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.1"/>
+    </Border.Effect>
+    <StackPanel Orientation="Horizontal">
+        <TextBlock Text="📅" FontSize="18" Margin="0,0,8,0"/>
+        <TextBlock x:Name="txtFechaHoy" FontSize="13" FontWeight="Medium" 
+                       Foreground="#2F5233" VerticalAlignment="Center"/>
+    </StackPanel>
+</Border>
             </Grid>
 
             <!-- Tarjetas de estadísticas principales (4 columnas) -->

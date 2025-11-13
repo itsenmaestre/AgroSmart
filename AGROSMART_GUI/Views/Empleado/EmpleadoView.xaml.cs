@@ -29,19 +29,24 @@ namespace AGROSMART_GUI.Views.Empleado
         public EmpleadoView(int idEmpleadoActual, string nombreCompleto = null)
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
 
+           
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
+
+           
+            this.ResizeMode = ResizeMode.CanResize;
             _idEmpleado = idEmpleadoActual;
             _nombreEmpleado = nombreCompleto;
 
-            // Mostrar nombre del empleado
             if (!string.IsNullOrWhiteSpace(_nombreEmpleado))
                 txtUserName.Text = _nombreEmpleado;
 
-            // Seleccionar "Inicio" por defecto
+            
             MenuListBox.SelectedIndex = 0;
 
-            // Cargar página de inicio
-            CargarPaginaInicio();
+           
+            
         }
 
         private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,7 +58,7 @@ namespace AGROSMART_GUI.Views.Empleado
                 switch (tag)
                 {
                     case "🏠":
-                        CargarPaginaInicio();
+                        EmpleadoFrame.Navigate(new InicioEmpleadoPage(_idEmpleado, _nombreEmpleado));
                         break;
                     case "📋":
                         EmpleadoFrame.Navigate(new MisTareasPage(_idEmpleado));
@@ -87,9 +92,6 @@ namespace AGROSMART_GUI.Views.Empleado
             }
         }
 
-        private void CargarPaginaInicio()
-        {
-            EmpleadoFrame.Navigate(new InicioEmpleadoPage(_idEmpleado, _nombreEmpleado));
-        }
+       
     }
 }

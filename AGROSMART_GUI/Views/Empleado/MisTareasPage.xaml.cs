@@ -28,6 +28,7 @@ namespace AGROSMART_GUI.Views.Empleado
         private class TareaItem
         {
             public int Codigo { get; set; }
+            public string Nombre { get; set; }
             public string Estado { get; set; }
             public string FechaProgramada { get; set; }
             public string HorasAcumuladas { get; set; }
@@ -37,9 +38,6 @@ namespace AGROSMART_GUI.Views.Empleado
         {
             InitializeComponent();
             _idEmpleado = idEmpleado;
-
-            // Registrar el converter
-            this.Resources.Add("EstadoToColorConverter", new EstadoToColorConverter());
 
             CargarTareas();
         }
@@ -57,11 +55,14 @@ namespace AGROSMART_GUI.Views.Empleado
 
                 foreach (var a in asignaciones)
                 {
+                    
+                    var tarea = _tareaService.ObtenerPorId(a.ID_TAREA);
                     var fecha = _tareaService.ObtenerFechaProgramada(a.ID_TAREA);
 
                     items.Add(new TareaItem
                     {
                         Codigo = a.ID_TAREA,
+                        Nombre = tarea?.TIPO_ACTIVIDAD ?? "Sin nombre",
                         Estado = a.ESTADO,
                         FechaProgramada = fecha.HasValue ? fecha.Value.ToString("dd/MM/yyyy") : "-",
                         HorasAcumuladas = a.HORAS_TRABAJADAS.HasValue ? a.HORAS_TRABAJADAS.Value.ToString("0.##") : "0"
@@ -88,31 +89,8 @@ namespace AGROSMART_GUI.Views.Empleado
             }
         }
     }
-
-    // Converter para colores de estado
-    public class EstadoToColorConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (values[0] == null) return Colors.Gray;
-
-            string estado = values[0].ToString();
-            switch (estado)
-            {
-                case "PENDIENTE":
-                    return Color.FromRgb(243, 156, 18); // Naranja
-                case "EN_EJECUCION":
-                    return Color.FromRgb(33, 150, 243); // Azul
-                case "FINALIZADA":
-                    return Color.FromRgb(76, 175, 80); // Verde
-                default:
-                    return Colors.Gray;
-            }
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }
+   
+  
+    
+

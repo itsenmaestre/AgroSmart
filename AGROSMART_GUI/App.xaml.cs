@@ -19,8 +19,9 @@ namespace AGROSMART_GUI
             base.OnStartup(e);
 
             // Abrir MainWindow en lugar de BienvenidaPage
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            var main = new MainWindow();
+
+            main.Show();
         }
     }
 }

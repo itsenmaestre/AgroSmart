@@ -15,7 +15,7 @@ namespace AGROSMART_ENTITY.ENTIDADES
         public System.DateTime FECHA_ASIGNACION { get; set; }
         public string ESTADO { get; set; }
 
-        // estos tres como nullable porque en Oracle pueden venir NULL
+        
         public decimal? HORAS_TRABAJADAS { get; set; }
         public decimal? JORNADAS_TRABAJADAS { get; set; }
         public decimal? PAGO_ACORDADO { get; set; }

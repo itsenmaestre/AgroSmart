@@ -80,8 +80,12 @@
     <Compile Include="Views\Empleado\AyudaPage.xaml.cs">
       <DependentUpon>AyudaPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Empleado\Converters\EstadoToColorConverter.cs" />
     <Compile Include="Views\Empleado\EmpleadoView.xaml.cs">
       <DependentUpon>EmpleadoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\GestionarEmpleadosPage.xaml.cs">
+      <DependentUpon>GestionarEmpleadosPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Empleado\InicioEmpleadoPage.xaml.cs">
       <DependentUpon>InicioEmpleadoPage.xaml</DependentUpon>
@@ -163,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Empleado\EmpleadoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\GestionarEmpleadosPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

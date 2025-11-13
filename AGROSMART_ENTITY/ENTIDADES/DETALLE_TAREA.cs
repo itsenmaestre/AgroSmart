@@ -11,6 +11,6 @@ namespace AGROSMART_ENTITY.ENTIDADES
         public int ID_DETALLE_TAREA { get; set; }
         public int ID_TAREA { get; set; }
         public int ID_INSUMO { get; set; }
-        public decimal CANTIDAD_USADA { get; set; } // NUMBER(14,2)
+        public decimal CANTIDAD_USADA { get; set; } 
     }
 }

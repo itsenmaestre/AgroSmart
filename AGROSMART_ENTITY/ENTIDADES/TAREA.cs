@@ -13,10 +13,10 @@ namespace AGROSMART_ENTITY.ENTIDADES
         public int ID_ADMIN_CREADOR { get; set; }
         public string TIPO_ACTIVIDAD { get; set; }
         public DateTime FECHA_PROGRAMADA { get; set; }
-        public decimal TIEMPO_TOTAL_TAREA { get; set; } // NUMBER(8,2)
-        public string ESTADO { get; set; }              // VARCHAR2(20)
-        public string ES_RECURRENTE { get; set; }       // V/F
-        public int FRECUENCIA_DIAS { get; set; }        // NUMBER(4)
-        public decimal COSTO_TRANSPORTE { get; set; }   // NUMBER(14,2)
+        public decimal TIEMPO_TOTAL_TAREA { get; set; } 
+        public string ESTADO { get; set; }            
+        public string ES_RECURRENTE { get; set; }       
+        public int FRECUENCIA_DIAS { get; set; }        
+        public decimal COSTO_TRANSPORTE { get; set; }  
     }
 }

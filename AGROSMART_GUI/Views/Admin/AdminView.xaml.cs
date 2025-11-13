@@ -25,17 +25,23 @@ namespace AGROSMART_GUI.Views.Admin
         public AdminView(int idAdmin, string nombreCompleto)
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
 
+             
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
+
+            
+            this.ResizeMode = ResizeMode.CanResize;
             _idAdmin = idAdmin;
             _nombreAdmin = nombreCompleto;
 
-            // Mostrar nombre del admin
+          
             if (!string.IsNullOrWhiteSpace(_nombreAdmin))
                 txtUserName.Text = _nombreAdmin;
 
-            // Cargar página de inicio por defecto
+            
             MenuListBox.SelectedIndex = 0;
-            CargarPaginaInicio();
+            
         }
 
         private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -52,37 +58,56 @@ namespace AGROSMART_GUI.Views.Admin
                     case "✅": // Crear Tareas
                         CargarPaginaCrearTareas();
                         break;
-                    case "👥": // Asignar Tarea
+                    case "🏠":
+                        InicioAdminPage();
+                        break;
+                    case "📋": // Asignar Tarea
                         CargarPaginaAsignarTarea();
                         break;
                     case "🌾": // Cultivos
                         CargarPaginaCultivos();
                         break;
+                    case "👥": // Empleados
+                        CargarPaginaEmpleados();
+                        break;
                     case "🌽": // Cosechas
                         CargarPaginaCosechas();
-                        break;
-                    default:
-                        CargarPaginaInicio();
                         break;
                 }
             }
         }
 
-        private void CargarPaginaInicio()
+        private void InicioAdminPage()
         {
             try
             {
-                // Puedes crear una página de dashboard con estadísticas
+                
                 var page = new InicioAdminPage(_idAdmin, _nombreAdmin);
                 AdminFrame.Navigate(page);
             }
             catch
             {
-                // Si no existe InicioAdminPage, mostrar página temporal
+                
                 MostrarPaginaTemporal("Dashboard",
                     $"Bienvenido {_nombreAdmin}.\nSelecciona una opción del menú lateral.");
             }
         }
+
+        private void CargarPaginaEmpleados()
+        {
+            try
+            {
+                var page = new GestionarEmpleadosPage();
+                AdminFrame.Navigate(page);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar Empleados: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
 
         private void CargarPaginaInsumos()
         {
@@ -201,11 +226,12 @@ namespace AGROSMART_GUI.Views.Admin
 
             if (result == MessageBoxResult.Yes)
             {
-                // Volver a MainWindow (login)
+                
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 this.Close();
             }
         }
+        
     }
 }

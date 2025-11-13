@@ -106,23 +106,27 @@
             </Border>
 
             <!-- Menú de navegación -->
-            <StackPanel Grid.Row="1" Margin="12,0">
-                <TextBlock Text="ADMINISTRACIÓN" FontSize="11" FontWeight="Bold" 
-                          Foreground="#95A5A6" Margin="18,0,0,10"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="12,0">
+                    <TextBlock Text="ADMINISTRACIÓN" FontSize="11" FontWeight="Bold" 
+                              Foreground="#95A5A6" Margin="18,0,0,10"/>
 
-                <ListBox x:Name="MenuListBox"
-                         SelectionChanged="MenuListBox_SelectionChanged"
-                         Background="Transparent"
-                         BorderThickness="0"
-                         ItemContainerStyle="{StaticResource NavListBoxItemStyle}">
+                    <ListBox x:Name="MenuListBox"
+                             SelectionChanged="MenuListBox_SelectionChanged"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource NavListBoxItemStyle}">
 
-                    <ListBoxItem Content="Insumos" Tag="📦" />
-                    <ListBoxItem Content="Crear Tareas" Tag="✅" />
-                    <ListBoxItem Content="Asignar Tarea" Tag="👥" />
-                    <ListBoxItem Content="Cultivos" Tag="🌾" />
-                    <ListBoxItem Content="Cosechas" Tag="🌽" />
-                </ListBox>
-            </StackPanel>
+                        <ListBoxItem Content="Inicio" Tag="🏠" />
+                        <ListBoxItem Content="Empleados" Tag="👥" />
+                        <ListBoxItem Content="Insumos" Tag="📦" />
+                        <ListBoxItem Content="Crear Tareas" Tag="✅" />
+                        <ListBoxItem Content="Asignar Tarea" Tag="📋" />
+                        <ListBoxItem Content="Cultivos" Tag="🌾" />
+                        <ListBoxItem Content="Cosechas" Tag="🌽" />
+                    </ListBox>
+                </StackPanel>
+            </ScrollViewer>
 
             <!-- Footer con info de usuario -->
             <StackPanel Grid.Row="2" Margin="12,0,12,15">
@@ -155,26 +159,26 @@
 
                 <!-- Botón cerrar sesión -->
                 <Button x:Name="btnCerrarSesion"
-         Click="BtnCerrarSesion_Click"
-         Background="Transparent"
-         BorderBrush="#E5E7EB"
-         BorderThickness="1.5"
-         Height="45"
-         Cursor="Hand">
+                        Click="BtnCerrarSesion_Click"
+                        Background="Transparent"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1.5"
+                        Height="45"
+                        Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}"
-    BorderBrush="{TemplateBinding BorderBrush}"
-    BorderThickness="{TemplateBinding BorderThickness}"
-    CornerRadius="10"
-    Padding="12">
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10"
+                                    Padding="12">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Text="🚪" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                     <TextBlock Text="Cerrar Sesión" 
-             FontSize="13"
-             FontWeight="Medium"
-             Foreground="#E74C3C"
-             VerticalAlignment="Center"/>
+                                              FontSize="13"
+                                              FontWeight="Medium"
+                                              Foreground="#E74C3C"
+                                              VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                             <ControlTemplate.Triggers>

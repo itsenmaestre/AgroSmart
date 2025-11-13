@@ -68,7 +68,7 @@ namespace AGROSMART_BLL
             return _repo.Eliminar(entidad);
         }
 
-        // Métodos adicionales
+     
         public List<TAREA> ObtenerPorCultivo(int idCultivo)
         {
             if (idCultivo <= 0)
@@ -95,11 +95,7 @@ namespace AGROSMART_BLL
             return _repo.ObtenerPorEstado("EN_PROGRESO").Count;
         }
 
-        // ===== MÉTODOS NUEVOS PARA EmpleadoView =====
-
-        /// <summary>
-        /// Obtiene la fecha programada de una tarea específica
-        /// </summary>
+       
         public DateTime? ObtenerFechaProgramada(int idTarea)
         {
             try
@@ -113,9 +109,6 @@ namespace AGROSMART_BLL
             }
         }
 
-        /// <summary>
-        /// Cuenta las tareas asignadas a un empleado para el día actual
-        /// </summary>
         public int ContarTareasDeHoy(int idEmpleado)
         {
             try
@@ -128,10 +121,6 @@ namespace AGROSMART_BLL
                 return 0;
             }
         }
-
-        /// <summary>
-        /// Cuenta las tareas de un empleado por estado específico
-        /// </summary>
         public int ContarPorEstado(int idEmpleado, string estado)
         {
             try
@@ -144,9 +133,7 @@ namespace AGROSMART_BLL
             }
         }
 
-        /// <summary>
-        /// Cuenta las tareas vencidas de un empleado
-        /// </summary>
+     
         public int ContarVencidas(int idEmpleado)
         {
             try

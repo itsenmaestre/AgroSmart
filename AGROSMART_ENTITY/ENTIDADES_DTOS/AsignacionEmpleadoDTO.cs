@@ -14,9 +14,9 @@ namespace AGROSMART_ENTITY.ENTIDADES_DTOS
 
         // ASIGNACION_TAREA
         public string ESTADO_ASIGNACION { get; set; }
-        public decimal? HORAS_TRABAJADAS { get; set; }
-        public decimal? JORNADAS_TRABAJADAS { get; set; }
-        public decimal? PAGO_ACORDADO { get; set; }
+        public decimal HORAS_TRABAJADAS { get; set; }
+        public decimal JORNADAS_TRABAJADAS { get; set; }
+        public decimal PAGO_ACORDADO { get; set; }
 
         // TAREA
         public string TIPO_ACTIVIDAD { get; set; }

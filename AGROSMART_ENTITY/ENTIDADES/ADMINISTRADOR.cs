@@ -9,6 +9,6 @@ namespace AGROSMART_ENTITY.ENTIDADES
     public class ADMINISTRADOR
     {
         public int ID_USUARIO { get; set; }
-        public decimal MONTO_MENSUAL { get; set; } // NUMBER(12,2)
+        public decimal MONTO_MENSUAL { get; set; } 
     }
 }
